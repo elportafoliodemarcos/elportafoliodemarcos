@@ -1,0 +1,51 @@
+{% extends 'portafolio/base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Galería" %}{% endblock %}
+
+{% block fullwidth %}
+<div class="full-width-carousel">
+    <div id="galeriaCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            {% for banner in banners %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <img src="{{ banner.imagen.url }}" class="d-block w-100" alt="{{ banner.titulo }}">
+                <div class="carousel-caption">
+                    <h5>{{ banner.titulo }}</h5>
+                    <p>{{ banner.descripcion }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#galeriaCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">{% trans "Anterior" %}</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#galeriaCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">{% trans "Siguiente" %}</span>
+        </button>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container category-section">
+   <h2 class="category-title">
+    {% trans "Galería de Fotos" %}
+   </h2>
+    <div class="row">
+        {% for foto in fotos %}
+        <div class="col-md-4 mb-4">
+            <div class="photo-card">
+                <img src="{{ foto.imagen.url }}" alt="{{ foto.titulo }}">
+                <div class="info">
+                    <h5>{{ foto.titulo }}</h5>
+                    <p>{{ foto.descripcion }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

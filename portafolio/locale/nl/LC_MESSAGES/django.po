@@ -1,0 +1,223 @@
+# portafolio/locale/nl/LC_MESSAGES/django.po
+msgid ""
+msgstr ""
+"Project-Id-Version: PORTAFOLIO\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-07 00:00+0000\n"
+"PO-Revision-Date: 2025-11-07 00:00+0000\n"
+"Last-Translator: Marcos\n"
+"Language-Team: Dutch\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: portafolio/templates/portafolio/acerca.html:4
+msgid "Acerca de mí - El Portafolio de Marcos"
+msgstr "Over mij - Het Portfolio van Marcos"
+
+#: portafolio/templates/portafolio/acerca.html:11
+msgid "Acerca de mí"
+msgstr "Over mij"
+
+#: portafolio/templates/portafolio/acerca.html:14
+msgid ""
+"Mi nombre es Marcos, soy uruguayo, nacido en La Blanqueada, Montevideo. "
+"Desde muy joven encontré en la fotografía una forma de detener el tiempo y "
+"observar la vida con atención y sensibilidad."
+msgstr ""
+"Mijn naam is Marcos, ik ben Uruguayaan, geboren in La Blanqueada, Montevideo. "
+"Vanaf jonge leeftijd ontdekte ik fotografie als een manier om de tijd stil te "
+"zetten en het leven aandachtig en met gevoel te observeren."
+
+#: portafolio/templates/portafolio/acerca.html:18
+msgid ""
+"Mi mirada se nutre de la curiosidad por entender cómo los seres humanos "
+"interactuamos con nuestro entorno y descubrir las múltiples formas en que la "
+"vida se manifiesta. Cada fotografía es un fragmento de realidad que busca "
+"transmitir emociones y sensaciones."
+msgstr ""
+"Mijn blik wordt gevoed door nieuwsgierigheid om te begrijpen hoe mensen met hun "
+"omgeving omgaan en om de vele manieren te ontdekken waarop het leven zich "
+"openbaart. Elke foto is een fragment van de werkelijkheid dat emoties en "
+"gevoelens wil overbrengen."
+
+#: portafolio/templates/portafolio/acerca.html:22
+msgid ""
+"Aunque me considero un fotógrafo amateur, abordo mi trabajo con dedicación, "
+"buscando siempre transmitir autenticidad. Este espacio permite que mi "
+"trabajo sea accesible a todos, con opción de apoyar mediante donativos "
+"voluntarios."
+msgstr ""
+"Hoewel ik mezelf als amateurfotograaf beschouw, werk ik met toewijding en probeer "
+"ik altijd authenticiteit over te brengen. Deze ruimte maakt mijn werk voor iedereen "
+"toegankelijk, met de mogelijkheid om het project te steunen via vrijwillige donaties."
+
+#: portafolio/templates/portafolio/acerca.html:26
+msgid ""
+"Aquí encontrarás una invitación a mirar más allá de lo evidente y a "
+"compartir la experiencia de observar la vida a través de mis ojos. Cada "
+"fotografía es un diálogo abierto entre la mirada del artista y la "
+"sensibilidad del espectador."
+msgstr ""
+"Hier vind je een uitnodiging om verder te kijken dan het voor de hand liggende en "
+"de ervaring te delen van het leven observeren door mijn ogen. Elke foto is een "
+"open dialoog tussen de blik van de kunstenaar en de gevoeligheid van de kijker."
+
+#: portafolio/templates/portafolio/base.html:8
+#: portafolio/templates/portafolio/base.html:22
+#: portafolio/templates/portafolio/categoria.html:4
+#: portafolio/templates/portafolio/home.html:5
+msgid "El Portafolio de Marcos"
+msgstr "Het Portfolio van Marcos"
+
+#: portafolio/templates/portafolio/base.html:29
+#: portafolio/templates/portafolio/home.html:5
+msgid "Inicio"
+msgstr "Startpagina"
+
+#: portafolio/templates/portafolio/base.html:34
+#: portafolio/templates/portafolio/galeria.html:4
+msgid "Galería"
+msgstr "Galerij"
+
+#: portafolio/templates/portafolio/base.html:37
+msgid "Por el Mundo"
+msgstr "Over de Wereld"
+
+#: portafolio/templates/portafolio/base.html:38
+msgid "Natura"
+msgstr "Natuur"
+
+#: portafolio/templates/portafolio/base.html:39
+msgid "Atardeceres"
+msgstr "Zonsondergangen"
+
+#: portafolio/templates/portafolio/base.html:40
+msgid "Como Perros y Gatos"
+msgstr "Als Hond en Kat"
+
+#: portafolio/templates/portafolio/base.html:44
+msgid "Acerca de"
+msgstr "Over ons"
+
+#: portafolio/templates/portafolio/base.html:45
+msgid "Colaboración"
+msgstr "Samenwerking"
+
+#: portafolio/templates/portafolio/base.html:46
+msgid "Contacto"
+msgstr "Contact"
+
+#: portafolio/templates/portafolio/base.html:91
+msgid "El Portafolio de Marcos."
+msgstr "Het Portfolio van Marcos."
+
+#: portafolio/templates/portafolio/base.html:93
+msgid "Instagram"
+msgstr "Instagram"
+
+#: portafolio/templates/portafolio/base.html:94
+msgid "Facebook"
+msgstr "Facebook"
+
+#: portafolio/templates/portafolio/colaboracion.html:4
+msgid "Colaboración - El Portafolio de Marcos"
+msgstr "Samenwerking - Het Portfolio van Marcos"
+
+#: portafolio/templates/portafolio/colaboracion.html:9
+msgid "Apoyo al Proyecto"
+msgstr "Ondersteuning van het Project"
+
+#: portafolio/templates/portafolio/colaboracion.html:12
+msgid ""
+"Este proyecto se mantiene gracias a la pasión por la fotografía y al apoyo "
+"voluntario de quienes lo valoran. Los donativos son opcionales y ayudan a "
+"mantener esta iniciativa viva."
+msgstr ""
+"Dit project blijft bestaan dankzij de passie voor fotografie en de vrijwillige "
+"ondersteuning van degenen die het waarderen. Donaties zijn optioneel en helpen "
+"deze initiatief levend te houden."
+
+#: portafolio/templates/portafolio/colaboracion.html:19
+#, python-format
+msgid "Donativo de $%(opcion)s"
+msgstr "Donatie van $%(opcion)s"
+
+#: portafolio/templates/portafolio/colaboracion.html:20
+#, python-format
+msgid "Haz una donación de %(opcion)s USD para apoyar el proyecto."
+msgstr "Doe een donatie van %(opcion)s USD om het project te steunen."
+
+#: portafolio/templates/portafolio/colaboracion.html:25
+#: portafolio/templates/portafolio/colaboracion.html:47
+msgid "Donar ahora"
+msgstr "Nu doneren"
+
+#: portafolio/templates/portafolio/colaboracion.html:29
+#, python-format
+msgid "¡Muchas gracias! Tu donativo de $%(opcion)s ha sido registrado."
+msgstr "Hartelijk dank! Je donatie van $%(opcion)s is geregistreerd."
+
+#: portafolio/templates/portafolio/colaboracion.html:39
+msgid "Elige tu donativo"
+msgstr "Kies je donatie"
+
+#: portafolio/templates/portafolio/colaboracion.html:44
+msgid "Ingresa el monto:"
+msgstr "Voer het bedrag in:"
+
+#: portafolio/templates/portafolio/colaboracion.html:45
+msgid "Ej: 15"
+msgstr "Bijv.: 15"
+
+#: portafolio/templates/portafolio/colaboracion.html:51
+#, python-format
+msgid "¡Muchas gracias! Tu donativo de $%(mensaje_enviado)s ha sido registrado."
+msgstr "Hartelijk dank! Je donatie van $%(mensaje_enviado)s is geregistreerd."
+
+#: portafolio/templates/portafolio/contacto.html:5
+msgid "Contacto - El Portafolio de Marcos"
+msgstr "Contact - Het Portfolio van Marcos"
+
+#: portafolio/templates/portafolio/contacto.html:9
+msgid "Contáctame"
+msgstr "Contacteer mij"
+
+#: portafolio/templates/portafolio/contacto.html:14
+msgid "Nombre"
+msgstr "Naam"
+
+#: portafolio/templates/portafolio/contacto.html:19
+msgid "Correo electrónico"
+msgstr "E-mailadres"
+
+#: portafolio/templates/portafolio/contacto.html:24
+msgid "Mensaje"
+msgstr "Bericht"
+
+#: portafolio/templates/portafolio/contacto.html:29
+msgid "Enviar mensaje"
+msgstr "Verstuur bericht"
+
+#: portafolio/templates/portafolio/contacto.html:34
+msgid "Tu mensaje ha sido enviado correctamente."
+msgstr "Je bericht is succesvol verzonden."
+
+#: portafolio/templates/portafolio/galeria.html:22
+#: portafolio/templates/portafolio/home.html:21
+msgid "Anterior"
+msgstr "Vorige"
+
+#: portafolio/templates/portafolio/galeria.html:26
+#: portafolio/templates/portafolio/home.html:25
+msgid "Siguiente"
+msgstr "Volgende"
+
+#: portafolio/templates/portafolio/galeria.html:34
+msgid "Galería de Fotos"
+msgstr "Fotogalerij"
+
+#: portafolio/templates/portafolio/home.html:15
+msgid "No hay fotos destacadas para mostrar."
+msgstr "Er zijn geen uitgelichte foto’s om te tonen."

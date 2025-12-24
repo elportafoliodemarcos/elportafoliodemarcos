@@ -1,0 +1,44 @@
+{% extends 'portafolio/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Inicio" %} | {% trans "El Portafolio de Marcos" %}{% endblock %}
+
+{% block fullwidth %}
+<div id="carouselExampleIndicators" class="carousel slide full-width-carousel" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    {% if featured_photos %}
+        {% for photo in featured_photos %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+            <img src="{{ photo.image.url }}" class="d-block w-100" alt="{{ photo.title }}">
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="carousel-item active">
+            <img src="{% static 'portafolio/default.jpg' %}" class="d-block w-100" alt="{% trans 'No hay fotos destacadas' %}">
+        </div>
+    {% endif %}
+  </div>
+
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">{% trans "Anterior" %}</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">{% trans "Siguiente" %}</span>
+  </button>
+</div>
+{% endblock %}
+
+{% block content %}
+<!-- Aquí puedes poner contenido adicional debajo del carrusel -->
+{% endblock %}
+
+{% block extra_css %}
+<style>
+  main {
+    padding-top: 0 !important;
+  }
+</style>
+{% endblock %}

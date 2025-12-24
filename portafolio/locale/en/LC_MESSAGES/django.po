@@ -1,0 +1,230 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-07 14:36+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: portafolio/templates/portafolio/acerca.html:4
+msgid "Acerca de mí - El Portafolio de Marcos"
+msgstr "About Me - Marcos' Portfolio"
+
+#: portafolio/templates/portafolio/acerca.html:11
+msgid "Acerca de mí"
+msgstr "About"
+
+#: portafolio/templates/portafolio/acerca.html:14
+msgid ""
+"Mi nombre es Marcos, soy uruguayo, nacido en La Blanqueada, Montevideo. "
+"Desde muy joven encontré en la fotografía una forma de detener el tiempo y "
+"observar la vida con atención y sensibilidad."
+msgstr ""
+"My name is Marcos, I am Uruguayan, born in La Blanqueada, Montevideo. From a "
+"young age, I found in photography a way to stop time and observe life with "
+"attention and sensitivity."
+
+#: portafolio/templates/portafolio/acerca.html:18
+msgid ""
+"Mi mirada se nutre de la curiosidad por entender cómo los seres humanos "
+"interactuamos con nuestro entorno y descubrir las múltiples formas en que la "
+"vida se manifiesta. Cada fotografía es un fragmento de realidad que busca "
+"transmitir emociones y sensaciones."
+msgstr ""
+"My perspective is fueled by curiosity to understand how humans interact with "
+"our environment and discover the many ways life manifests. Each photograph "
+"is a fragment of reality aiming to convey emotions and sensations."
+
+#: portafolio/templates/portafolio/acerca.html:22
+msgid ""
+"Aunque me considero un fotógrafo amateur, abordo mi trabajo con dedicación, "
+"buscando siempre transmitir autenticidad. Este espacio permite que mi "
+"trabajo sea accesible a todos, con opción de apoyar mediante donativos "
+"voluntarios."
+msgstr ""
+"Although I consider myself an amateur photographer, I approach my work with "
+"dedication, always aiming to convey authenticity. This space makes my work "
+"accessible to everyone, with the option to support through voluntary "
+"donations."
+
+#: portafolio/templates/portafolio/acerca.html:26
+msgid ""
+"Aquí encontrarás una invitación a mirar más allá de lo evidente y a "
+"compartir la experiencia de observar la vida a través de mis ojos. Cada "
+"fotografía es un diálogo abierto entre la mirada del artista y la "
+"sensibilidad del espectador."
+msgstr ""
+"Here you will find an invitation to look beyond the obvious and share the "
+"experience of observing life through my eyes. Each photograph is an open "
+"dialogue between the artist's vision and the viewer's sensitivity."
+
+#: portafolio/templates/portafolio/base.html:8
+#: portafolio/templates/portafolio/base.html:22
+#: portafolio/templates/portafolio/categoria.html:4
+#: portafolio/templates/portafolio/home.html:5
+msgid "El Portafolio de Marcos"
+msgstr "Marcos' Portfolio"
+
+#: portafolio/templates/portafolio/base.html:29
+#: portafolio/templates/portafolio/home.html:5
+msgid "Inicio"
+msgstr "Home"
+
+#: portafolio/templates/portafolio/base.html:34
+#: portafolio/templates/portafolio/galeria.html:4
+msgid "Galería"
+msgstr "Gallery"
+
+#: portafolio/templates/portafolio/base.html:37
+msgid "Por el Mundo"
+msgstr "Around the World"
+
+#: portafolio/templates/portafolio/base.html:38
+msgid "Natura"
+msgstr "Nature"
+
+#: portafolio/templates/portafolio/base.html:39
+msgid "Atardeceres"
+msgstr "Sunsets"
+
+#: portafolio/templates/portafolio/base.html:40
+msgid "Como Perros y Gatos"
+msgstr "Like Cats and Dogs"
+
+#: portafolio/templates/portafolio/base.html:44
+msgid "Acerca de"
+msgstr "About"
+
+#: portafolio/templates/portafolio/base.html:45
+msgid "Colaboración"
+msgstr "Collaboration"
+
+#: portafolio/templates/portafolio/base.html:46
+msgid "Contacto"
+msgstr "Contact"
+
+#: portafolio/templates/portafolio/base.html:91
+msgid "El Portafolio de Marcos."
+msgstr "Marcos' Portfolio."
+
+#: portafolio/templates/portafolio/base.html:93
+msgid "Instagram"
+msgstr "Instagram"
+
+#: portafolio/templates/portafolio/base.html:94
+msgid "Facebook"
+msgstr "Facebook"
+
+#: portafolio/templates/portafolio/colaboracion.html:4
+msgid "Colaboración - El Portafolio de Marcos"
+msgstr "Collaboration - Marcos' Portfolio"
+
+#: portafolio/templates/portafolio/colaboracion.html:9
+msgid "Apoyo al Proyecto"
+msgstr "Support the Project"
+
+#: portafolio/templates/portafolio/colaboracion.html:12
+msgid ""
+"Este proyecto se mantiene gracias a la pasión por la fotografía y al apoyo "
+"voluntario de quienes lo valoran. Los donativos son opcionales y ayudan a "
+"mantener esta iniciativa viva."
+msgstr ""
+"This project is sustained thanks to the passion for photography and the "
+"voluntary support of those who value it. Donations are optional and help "
+"keep this initiative alive."
+
+#: portafolio/templates/portafolio/colaboracion.html:19
+#, python-format
+msgid "Donativo de $%(opcion)s"
+msgstr "Donation of $%(opcion)s"
+
+#: portafolio/templates/portafolio/colaboracion.html:20
+#, python-format
+msgid "Haz una donación de %(opcion)s USD para apoyar el proyecto."
+msgstr "Make a donation of %(opcion)s USD to support the project."
+
+#: portafolio/templates/portafolio/colaboracion.html:25
+#: portafolio/templates/portafolio/colaboracion.html:47
+msgid "Donar ahora"
+msgstr "Donate now"
+
+#: portafolio/templates/portafolio/colaboracion.html:29
+#, python-format
+msgid "¡Muchas gracias! Tu donativo de $%(opcion)s ha sido registrado."
+msgstr "Thank you very much! Your donation of $%(opcion)s has been recorded."
+
+#: portafolio/templates/portafolio/colaboracion.html:39
+msgid "Elige tu donativo"
+msgstr "Choose your donation"
+
+#: portafolio/templates/portafolio/colaboracion.html:44
+msgid "Ingresa el monto:"
+msgstr "Enter the amount:"
+
+#: portafolio/templates/portafolio/colaboracion.html:45
+msgid "Ej: 15"
+msgstr "E.g.: 15"
+
+#: portafolio/templates/portafolio/colaboracion.html:51
+#, python-format
+msgid ""
+"¡Muchas gracias! Tu donativo de $%(mensaje_enviado)s ha sido registrado."
+msgstr ""
+"Thank you very much! Your donation of $%(mensaje_enviado)s has been recorded."
+
+#: portafolio/templates/portafolio/contacto.html:5
+msgid "Contacto - El Portafolio de Marcos"
+msgstr "Contact - Marcos' Portfolio"
+
+#: portafolio/templates/portafolio/contacto.html:9
+msgid "Contáctame"
+msgstr "Contact"
+
+#: portafolio/templates/portafolio/contacto.html:14
+msgid "Nombre"
+msgstr "Name"
+
+#: portafolio/templates/portafolio/contacto.html:19
+msgid "Correo electrónico"
+msgstr "Email"
+
+#: portafolio/templates/portafolio/contacto.html:24
+msgid "Mensaje"
+msgstr "Message"
+
+#: portafolio/templates/portafolio/contacto.html:29
+msgid "Enviar mensaje"
+msgstr "Send message"
+
+#: portafolio/templates/portafolio/contacto.html:34
+msgid "Tu mensaje ha sido enviado correctamente."
+msgstr "Your message has been sent successfully."
+
+#: portafolio/templates/portafolio/galeria.html:22
+#: portafolio/templates/portafolio/home.html:21
+msgid "Anterior"
+msgstr "Previous"
+
+#: portafolio/templates/portafolio/galeria.html:26
+#: portafolio/templates/portafolio/home.html:25
+msgid "Siguiente"
+msgstr "Next"
+
+#: portafolio/templates/portafolio/galeria.html:34
+msgid "Galería de Fotos"
+msgstr "Photo Gallery"
+
+#: portafolio/templates/portafolio/home.html:15
+msgid "No hay fotos destacadas para mostrar."
+msgstr "No featured photos to display."

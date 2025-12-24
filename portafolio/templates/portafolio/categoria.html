@@ -1,0 +1,190 @@
+{% extends 'portafolio/base.html' %}
+{% load i18n %}
+
+{% block title %}{{ category.name }} - {% trans "El Portafolio de Marcos" %}{% endblock %}
+
+{% block content %}
+
+<div id="main-content">
+
+    <!-- Título -->
+    <h1 class="my-5 text-center category-title border-bottom pb-4">
+        {{ category.name }}
+    </h1>
+
+    <div class="container mb-5">
+        <div class="row">
+
+            {% for photo in photos %}
+            <div class="col-lg-4 col-md-6 col-sm-6 mb-3">
+
+                <div class="photo-card-custom">
+
+                    <!-- Abrir modal -->
+                    <a href="#" class="open-carousel" data-index="{{ forloop.counter0 }}">
+                        <img src="{{ photo.image.url }}" alt="{{ photo.title }}" class="photo-img">
+                    </a>
+
+                    <div class="overlay-info">
+                        <h5>{{ photo.title }}</h5>
+                        <p>{{ photo.description|truncatewords:20 }}</p>
+
+                        <a href="{{ photo.image.url }}" download class="icon-download">
+                            <i class="bi bi-download"></i>
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+<!-- ==========================================================
+     MODAL + CARRUSEL AJUSTADO A PANTALLA
+========================================================== -->
+<div class="modal fade" id="carouselModal" tabindex="-1" style="background: transparent;">
+    <div class="modal-dialog modal-dialog-centered modal-fullscreen">
+
+        <div class="modal-content border-0" style="background: transparent; box-shadow: none;">
+
+            <div class="modal-body p-0 d-flex justify-content-center align-items-center modal-click-area">
+
+                <div id="categoryCarousel" class="carousel slide" data-bs-interval="false">
+
+                    <div class="carousel-inner text-center position-relative">
+
+                        {% for photo in photos %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+
+                            <img src="{{ photo.image.url }}"
+                                 class="carousel-image"
+                                 alt="{{ photo.title }}">
+
+                            <!-- Flechas posicionadas relativo a la imagen -->
+                            <button class="carousel-control-prev custom-arrow"
+                                type="button"
+                                data-bs-target="#categoryCarousel"
+                                data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon"></span>
+                            </button>
+
+                            <button class="carousel-control-next custom-arrow"
+                                type="button"
+                                data-bs-target="#categoryCarousel"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon"></span>
+                            </button>
+
+                        </div>
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- ==========================================================
+     SCRIPT — ABRIR CARRUSEL, CIERRE CLICK FUERA SEGURO, TECLAS
+========================================================== -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const modalEl = document.getElementById('carouselModal');
+    const modal = new bootstrap.Modal(modalEl);
+    const carouselElement = document.getElementById('categoryCarousel');
+    const carousel = new bootstrap.Carousel(carouselElement);
+    const mainContent = document.getElementById('main-content');
+
+    // Abrir carrusel en la foto correcta
+    document.querySelectorAll(".open-carousel").forEach(item => {
+        item.addEventListener("click", function (e) {
+            e.preventDefault();
+            let index = parseInt(this.dataset.index);
+            carousel.to(index);
+            modal.show();
+        });
+    });
+
+    // Aplicar blur al contenido principal al abrir modal
+    modalEl.addEventListener('show.bs.modal', function () {
+        mainContent.classList.add('blur');
+    });
+
+    // Quitar blur al cerrar modal
+    modalEl.addEventListener('hidden.bs.modal', function () {
+        mainContent.classList.remove('blur');
+    });
+
+    // Cerrar modal al hacer click fuera de la imagen (solo en área vacía)
+    modalEl.addEventListener('click', function (e) {
+        const carouselContainer = modalEl.querySelector('#categoryCarousel');
+        if (!carouselContainer.contains(e.target)) {
+            modal.hide();
+        }
+    });
+
+    // Navegación con teclas
+    document.addEventListener('keydown', function(e) {
+        if (!modalEl.classList.contains('show')) return;
+        if (e.key === "ArrowLeft") {
+            carousel.prev();
+        } else if (e.key === "ArrowRight") {
+            carousel.next();
+        } else if (e.key === "Escape") {
+            modal.hide();
+        }
+    });
+
+});
+</script>
+
+<!-- ==========================================================
+     CSS — FOTO AJUSTADA SIN FONDO + FLECHAS JUNTO A LA FOTO
+========================================================== -->
+<style>
+.carousel-image {
+    max-width: 100vw;
+    max-height: 100vh;
+    object-fit: contain;
+    background: transparent;
+}
+
+#main-content.blur {
+    filter: blur(6px);
+    transition: filter 0.3s ease;
+}
+
+.custom-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent !important;
+    border: none;
+    width: 50px;
+    height: 50px;
+}
+
+.carousel-control-prev.custom-arrow {
+    left: 10px;
+}
+
+.carousel-control-next.custom-arrow {
+    right: 10px;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: invert(1);
+}
+</style>
+
+{% endblock %}

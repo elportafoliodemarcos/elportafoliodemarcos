@@ -1,0 +1,39 @@
+{% extends 'portafolio/base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Contacto - El Portafolio de Marcos" %}{% endblock %}
+
+{% block content %}
+<div class="pt-3 pb-5">
+    <h1 class="category-title mb-10 text-center">{% trans "Contáctame" %}</h1>
+
+    <form method="post" class="shadow p-4 bg-white rounded mx-auto" style="max-width: 600px; margin-top: 60px;">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label">{% trans "Nombre" %}</label>
+            <input type="text" name="nombre" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">{% trans "Correo electrónico" %}</label>
+            <input type="email" name="email" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">{% trans "Mensaje" %}</label>
+            <textarea name="mensaje" rows="5" class="form-control" required></textarea>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-dark">{% trans "Enviar mensaje" %}</button>
+        </div>
+
+        {% if mensaje_enviado %}
+            <div class="mensaje-enviado mt-3 text-center">
+                ✅ {% trans "Tu mensaje ha sido enviado correctamente." %}
+            </div>
+        {% endif %}
+    </form>
+</div>
+{% endblock %}

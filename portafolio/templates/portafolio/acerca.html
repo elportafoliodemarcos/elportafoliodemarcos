@@ -1,0 +1,32 @@
+{% extends 'portafolio/base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Acerca de mí - El Portafolio de Marcos" %}{% endblock %}
+
+{% block content %}
+<div class="container py-5" id="acerca">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-md-12">
+
+            <h1 class="category-title mb-5 text-center border-bottom pb-3">{% trans "Acerca de mí" %}</h1>
+
+            <p class="acerca-text mb-4">
+                {% trans "Mi nombre es Marcos, soy uruguayo, nacido en La Blanqueada, Montevideo. Desde muy joven encontré en la fotografía una forma de detener el tiempo y observar la vida con atención y sensibilidad." %}
+            </p>
+
+            <p class="acerca-text mb-4">
+                {% trans "Mi mirada se nutre de la curiosidad por entender cómo los seres humanos interactuamos con nuestro entorno y descubrir las múltiples formas en que la vida se manifiesta. Cada fotografía es un fragmento de realidad que busca transmitir emociones y sensaciones." %}
+            </p>
+
+            <p class="acerca-text mb-4">
+                {% trans "Aunque me considero un fotógrafo amateur, abordo mi trabajo con dedicación, buscando siempre transmitir autenticidad. Este espacio permite que mi trabajo sea accesible a todos, con opción de apoyar mediante donativos voluntarios." %}
+            </p>
+
+            <p class="acerca-text mb-4">
+                {% trans "Aquí encontrarás una invitación a mirar más allá de lo evidente y a compartir la experiencia de observar la vida a través de mis ojos. Cada fotografía es un diálogo abierto entre la mirada del artista y la sensibilidad del espectador." %}
+            </p>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
