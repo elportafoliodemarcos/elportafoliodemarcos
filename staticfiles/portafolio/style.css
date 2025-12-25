@@ -1,0 +1,541 @@
+/* ===========================
+   ESTILOS GENERALES
+=========================== */
+body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+h1, h2, h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* ===========================
+   CARRUSEL — ALTURA EXACTA ENTRE NAVBAR Y FOOTER
+=========================== */
+
+/* Asegura que el carrusel toque el navbar SIN margen */
+.full-width-carousel {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding: 0 !important;
+    position: relative;
+    z-index: 1;
+}
+
+/* Altura calculada:
+   - 80px = altura del navbar
+   - 60px = altura aproximada del footer
+   Si después quieres ajustarlo, dime y lo hago exacto. */
+.full-width-carousel .carousel-inner,
+.full-width-carousel .carousel-item {
+    height: 100vh !important; /* ocupa la pantalla completa */
+}
+
+/* Imagen ocupa toda la altura disponible */
+.full-width-carousel .carousel-inner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* En móvil el footer suele crecer un poco */
+@media (max-width: 768px) {
+    .full-width-carousel .carousel-inner,
+    .full-width-carousel .carousel-item {
+        height: calc(100vh - 80px - 80px);
+    }
+}
+
+
+/* 🔹 Limpia el fondo del texto en el carrusel */
+.carousel-caption {
+  background: none !important;
+  text-shadow: none !important;
+  padding: 0.5rem 1rem;
+}
+
+.carousel-caption h5,
+.carousel-caption p {
+  color: white;
+  text-shadow: 0 0 5px rgba(0,0,0,0.5);
+  background: none;
+}
+
+.carousel-caption {
+  bottom: 2rem; /* puedes ajustar si quieres mover el texto */
+}
+
+/* ===========================
+   DROPDOWN NAV - Hover para el menú de Galería
+=========================== */
+.navbar {
+    z-index: 1050 !important; /* 🔹 Asegura que esté por encima del carrusel */
+    background-color: white !important;
+    color: black !important;
+    border-bottom: 3px solid #ccc;
+}
+
+header {
+    position: relative;
+    z-index: 1050 !important; /* 🔹 También eleva el header completo */
+}
+
+.navbar a {
+    color: black !important;
+}
+
+/* 🔽 Dropdown visible al pasar el puntero */
+.navbar .nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+}
+
+/* Estado base (oculto) */
+.navbar .dropdown-menu {
+    display: none;
+    background-color: white;
+    border: 1px solid #ccc;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1060; /* 🔹 Asegura que el menú quede sobre todo */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.25s ease-in-out;
+}
+
+/* Estado visible con animación suave */
+.navbar .nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.navbar .dropdown-menu .dropdown-item {
+    color: black;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+}
+
+.navbar .dropdown-menu .dropdown-item:hover {
+    background-color: #f8f9fa;
+    color: black;
+}
+
+/* ===========================
+   FOOTER CON LÍNEA SUPERIOR
+=========================== */
+footer {
+    background-color: white;
+    font-size: 0.95rem;
+    color: black;
+    padding: 1rem 0;
+    text-align: center;
+    position: relative; /* importante para la línea */
+}
+
+footer::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 1px;               
+    background-color: rgba(0, 0, 0, 0.25); /* línea gris suave */
+    position: absolute;
+    top: 0;                     
+    left: 0;
+}
+
+footer p {
+    margin: 2px 0;
+    line-height: 1.2;
+}
+
+footer a {
+    color: black;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #888;
+    text-decoration: underline;
+}
+
+/* ===========================
+   ACERCA DE
+=========================== */
+#acerca {
+    max-width: 1000px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    color: black;
+}
+
+.acerca-title {
+    color: black;
+    font-size: 2rem; /* tamaño más grande que el texto */
+    margin-bottom: 30px;
+}
+
+.acerca-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    text-align: justify;
+}
+/* Botón DONAR AHORA en colaboración */
+.donar-btn {
+    background-color: #000; /* fondo negro */
+    color: #fff;           /* texto blanco */
+    border: none;
+    padding: 8px 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: block;
+    margin: 0 auto; /* esto centra el botón */
+    transition: background-color 0.3s ease;
+}
+
+.donar-btn:hover {
+    background-color: #333; /* cambio al pasar el mouse */
+    color: #fff;
+}
+/* ===========================
+   Sección Colaboración - márgenes y botones
+=========================== */
+#donativos h1 {
+    margin-bottom: 2.5rem; /* Más espacio entre título y texto */
+}
+
+#donativos p.fs-5 {
+    margin-bottom: 4rem; /* Más espacio entre texto y tarjetas */
+}
+
+/* Botones "Donar ahora" más pequeños y centrados */
+#donativos .btn {
+    font-size: 0.9rem; /* un poco más pequeño */
+    padding: 0.4rem 0.8rem; /* ajustar tamaño del botón */
+    display: block;
+    margin: 0 auto; /* centrar horizontalmente */
+}
+/* Sección de donativos más cerca del navbar */
+#donativos {
+    padding-top: 2rem;  /* Reduce el espacio superior */
+    padding-bottom: 3rem; /* Mantiene un poco de espacio inferior */
+}
+/* Sección Colaboración: todo el contenido más cerca del navbar */
+#donativos {
+    padding-top: 0.5rem !important; /* Reduce espacio superior */
+    padding-bottom: 2rem !important; /* Mantiene un poco de espacio inferior */
+}
+
+/* Quita márgenes de título y texto */
+#donativos h1,
+#donativos p.fs-5 {
+    margin-top: 0 !important;
+    margin-bottom: 1.5rem !important; /* espacio entre título y texto */
+}
+
+/* Ajusta fila de tarjetas */
+#donativos .row.justify-content-center {
+    margin-top: 1rem !important; /* espacio entre texto y tarjetas */
+}
+
+/* ===========================
+   ESTILOS PARA LAS IMÁGENES EN LAS TARJETAS
+=========================== */
+
+/* Cambiar el cursor al pasar sobre la imagen */
+.card img {
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+/* Efecto de zoom al pasar el ratón sobre la imagen */
+.card img:hover {
+    transform: scale(1.1);  /* Aumenta el tamaño de la imagen al 110% */
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Sombra más intensa */
+}
+
+/* Eliminar subrayado de los enlaces */
+.card a {
+    text-decoration: none; /* Elimina el subrayado */
+}
+
+/* Asegura que no haya subrayado en el hover */
+.card a:hover {
+    text-decoration: none;
+}
+/* ===========================
+   CENTRAR EL TÍTULO EN LA TARJETA
+=========================== */
+
+/* Centrar el texto dentro de .card-body (el título) */
+.card-body {
+    text-align: center; /* Centrar el texto */
+}
+
+/* Ajusta el margen superior del título para darle más espacio */
+.card-body .card-title {
+    margin-top: 1rem;
+}
+/* ===========================
+   NAVBAR BRAND STYLES
+=========================== */
+
+.navbar-brand {
+    text-decoration: none;
+}
+
+.navbar-brand .brand-title {
+    font-family: 'Dancing Script', cursive; /* cursiva elegante */
+    font-size: 1.4rem; 
+    font-weight: 600;
+    font-style: italic;
+    color: #222; 
+    line-height: 1.2;
+    text-align: center;
+}
+
+.navbar-brand .brand-subtitle {
+    font-family: 'Poppins', sans-serif; /* clara, no cursiva */
+    font-size: 0.75rem;
+    font-weight: 300;
+    letter-spacing: 2px; 
+    color: #777; 
+    text-transform: uppercase;
+    text-align: center; /* centrado con el título */
+    margin-top: -2px; /* opcional, ajusta la separación */
+}
+
+/* ===========================
+   FUENTE GLOBAL (ajustada sin !important)
+============================ */
+body, body *:not(.navbar-brand):not(.navbar-brand *) {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
+    font-size: 1.05rem;
+}
+/* ===========================
+   Formulario Contacto centrado
+=========================== */
+.contacto-titulo {
+    text-align: center;
+}
+
+form.shadow.p-4.bg-white.rounded.mx-auto {
+    text-align: center; /* centra los labels y botón */
+}
+
+form.shadow.p-4.bg-white.rounded.mx-auto .form-label {
+    display: block;
+    text-align: center; /* centra los labels */
+    margin-bottom: 0.5rem;
+}
+
+form.shadow.p-4.bg-white.rounded.mx-auto .form-control {
+    display: inline-block; /* permite centrar los inputs */
+    width: 80%;            /* ajusta el ancho del input */
+    text-align: left;      /* mantiene el texto alineado a la izquierda */
+    margin-bottom: 1rem;   /* espacio entre campos */
+}
+
+form.shadow.p-4.bg-white.rounded.mx-auto button {
+    display: block;
+    margin: 0.5rem auto;   /* centra el botón */
+}
+/* Cambiar color del item activo en el dropdown al pasar el mouse */
+.navbar .dropdown-menu .dropdown-item.active,
+.navbar .dropdown-menu .dropdown-item:active {
+    background-color: #ccc !important; /* gris claro */
+    color: black !important;           /* texto negro */
+}
+
+/* Mantener color gris al pasar el mouse sobre cualquier item */
+.navbar .dropdown-menu .dropdown-item:hover {
+    background-color: #ccc !important; /* gris claro */
+    color: black !important;
+}
+/* Más espacio debajo del título "Apoyo el proyecto" */
+#donativos h1 {
+    margin-bottom: 3rem !important; /* aumenta el espacio debajo del título */
+}
+
+/* Más espacio debajo de la frase que sigue al título */
+#donativos p.fs-5 {
+    margin-bottom: 4rem !important; /* aumenta el espacio entre frase y tarjetas */
+}
+/* Centrar el label "Ingresa el monto" en la tarjeta de donativo libre */
+#donativos .card h3:contains("Elige tu donativo") + form .form-group label {
+    display: block;
+    text-align: center;
+    width: 100%;
+}
+/* Centrar solo el label de monto libre */
+.text-center-label {
+    display: block;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 1rem; 
+}
+/* Efecto zoom en las tarjetas de donativos */
+#donativos .card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer; /* opcional, indica que es interactiva */
+}
+
+#donativos .card:hover {
+    transform: scale(1.03); /* ligeramente más grande */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); /* sombra más intensa */
+}
+/* ===========================
+   TÍTULOS DE CATEGORÍA - ESTILO PROFESIONAL CON EFECTO SUAVE
+=========================== */
+body .category-title {
+    font-family: 'Dancing Script', cursive sans-serif !important;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    font-size: 1.5rem !important;
+    font-weight: 500 !important;
+    color: #000 !important;
+    text-align: center;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+
+    /* Efecto profesional adicional */
+    transition: all 0.3s ease;
+}
+
+body h1.category-title:hover {
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+    transform: translateY(-3px);
+}
+
+/* ==========================================================
+   GALERÍA — MINIATURAS GRANDES, IGUALES, CON OVERLAY
+========================================================== */
+
+.photo-card-custom {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0;        /* Esquinas cuadradas */
+    cursor: pointer;
+    height: 420px;           /* ✔ FOTO MÁS GRANDE — puedes subir a 380px o 420px */
+    margin-bottom: 10px;     /* ✔ Menos espacio entre fotos */
+}
+
+.photo-card-custom img.photo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;       /* ✔ TODAS MISMA ALTURA Y ANCHO, LOOK PROFESIONAL */
+    display: block;
+    transition: transform .4s ease, filter .4s ease;
+}
+
+/* Zoom y oscurecimiento */
+.photo-card-custom:hover img.photo-img {
+    transform: scale(1.1);
+    filter: brightness(0.7);
+}
+
+/* Overlay */
+.overlay-info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.55);
+    color: white;
+    opacity: 0;
+    visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    transition: all .35s ease;
+    pointer-events: none;   /* No bloquea clics */
+}
+
+.photo-card-custom:hover .overlay-info {
+    opacity: 1;
+    visibility: visible;
+}
+
+.overlay-info h5 {
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.overlay-info p {
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+}
+
+/* Icono de descarga */
+.icon-download {
+    color: white;
+    font-size: 1.6rem;
+    opacity: 0;
+    transition: opacity .3s ease;
+    pointer-events: auto; /* Permite clic en descarga */
+}
+
+.photo-card-custom:hover .icon-download {
+    opacity: 1;
+}
+/* Anula la línea completa de Bootstrap */
+.category-title {
+    border-bottom: none !important;
+    position: relative;
+}
+
+/* Crea una nueva línea fina y corta, centrada y elegante */
+.category-title::after {
+    content: "";
+    display: block;
+    width: 40%; /* AJUSTA AQUÍ EL LARGO: 30%–60% */
+    height: 1px;
+    background: rgba(0,0,0,0.25);
+    margin: 1.5rem auto 0 auto; /* centrada siempre */
+    border-radius: 2px;
+}
+body {
+  padding-top: 80px; /* para que el navbar no tape contenido */
+}
+.full-width-carousel {
+    margin-top: -80px !important; /* lo sube justo debajo del navbar */
+}
+
+footer {
+    margin-top: -80px !important; /* corrige el desplazamiento del paso anterior */
+}
+/* Ajuste milimétrico para que el carrusel toque el footer */
+.full-width-carousel {
+    margin-bottom: -35px !important;
+}
+footer {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+}
+footer p {
+    margin-top: 0.5rem; /* ajusta este valor a tu gusto, ej. 0.5rem o 1rem */
+}
+
