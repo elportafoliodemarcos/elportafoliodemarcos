@@ -1,6 +1,9 @@
 import os
 from pathlib import Path
 from django.utils.translation import gettext_lazy as _
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -27,11 +30,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # Cloudinary
+    'cloudinary',
+    'cloudinary_storage',
+
     'portafolio',
 ]
 
 # =======================
-# 🧱 MIDDLEWARE (WhiteNoise OK)
+# 🧱 MIDDLEWARE
 # =======================
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -115,7 +122,7 @@ LOCALE_PATHS = [
 ]
 
 # =======================
-# 🎯 STATIC FILES (RENDER OK)
+# 🎯 STATIC FILES
 # =======================
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -128,10 +135,18 @@ if DEBUG:
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # =======================
-# 🖼️ MEDIA (NO USAR EN RENDER FREE)
+# ☁️ CLOUDINARY (MEDIA)
 # =======================
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+cloudinary.config(
+    cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
+    api_key=os.getenv("CLOUDINARY_API_KEY"),
+    api_secret=os.getenv("CLOUDINARY_API_SECRET"),
+)
+
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+
+MEDIA_URL = None
+MEDIA_ROOT = None
 
 # =======================
 # ⚙️ DEFAULTS
@@ -139,7 +154,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # =======================
-# 📧 MAILJET (MOVER A ENV VARS)
+# 📧 MAILJET
 # =======================
 MAILJET_API_KEY = '568e3f71cbdac8f7acc3e807782f43d5'
 MAILJET_API_SECRET = 'acb4800a243dc23050f042d333ffbcaf'
