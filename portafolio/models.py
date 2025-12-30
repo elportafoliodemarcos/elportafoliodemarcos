@@ -11,12 +11,18 @@ class Category(models.Model):
 
 class Photo(models.Model):
     title = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='photos/')  # IMPORTANTE: 'image', no 'imagen'
+    image = models.ImageField(upload_to='photos/')
     description = models.TextField(blank=True)
     is_public = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     price = models.DecimalField(max_digits=8, decimal_places=2, default=0.00)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='photos', null=True, blank=True)
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.CASCADE,
+        related_name='photos',
+        null=True,
+        blank=True
+    )
     is_featured = models.BooleanField(default=False)
 
     def __str__(self):

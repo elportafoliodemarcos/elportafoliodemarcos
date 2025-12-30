@@ -3,21 +3,21 @@ from pathlib import Path
 from django.utils.translation import gettext_lazy as _
 
 # -------------------------
-# Rutas y seguridad
+# Base
 # -------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'tu-secreto-local')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'clave-local')
 DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = [
     "elportafoliodemarcos.onrender.com",
     "localhost",
-    "127.0.0.1"
+    "127.0.0.1",
 ]
 
 # -------------------------
-# Apps instaladas
+# Apps
 # -------------------------
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -26,8 +26,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'cloudinary',
     'cloudinary_storage',
+
     'portafolio',
 ]
 
@@ -50,7 +52,7 @@ ROOT_URLCONF = 'myportafolio.urls'
 WSGI_APPLICATION = 'myportafolio.wsgi.application'
 
 # -------------------------
-# Templates y context processors
+# Templates
 # -------------------------
 TEMPLATES = [
     {
@@ -63,7 +65,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                # Context processor seguro
                 'portafolio.context_processors.categorias_disponibles',
             ],
         },
@@ -71,7 +72,7 @@ TEMPLATES = [
 ]
 
 # -------------------------
-# Base de datos (SQLite)
+# Database
 # -------------------------
 DATABASES = {
     'default': {
@@ -81,7 +82,7 @@ DATABASES = {
 }
 
 # -------------------------
-# Contraseñas
+# Password validation
 # -------------------------
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
@@ -108,68 +109,31 @@ LANGUAGES = [
     ('fr', _('Français')),
 ]
 
-LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
+LOCALE_PATHS = [BASE_DIR / 'locale']
 
 # -------------------------
-# Archivos estáticos y multimedia
+# Static files
 # -------------------------
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 if DEBUG:
-    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'portafolio/static')]
+    STATICFILES_DIRS = [BASE_DIR / 'portafolio' / 'static']
 
-# Configuración de Media Files (para desarrollo local)
+# -------------------------
+# Cloudinary (MEDIA)
+# -------------------------
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # -------------------------
-# Cloudinary (solo si está configurado)
+# Default PK
 # -------------------------
-# Obtener variables de entorno y eliminar espacios en blanco
-CLOUDINARY_CLOUD_NAME = os.environ.get("CLOUDINARY_CLOUD_NAME", "").strip()
-CLOUDINARY_API_KEY = os.environ.get("CLOUDINARY_API_KEY", "").strip()
-CLOUDINARY_API_SECRET = os.environ.get("CLOUDINARY_API_SECRET", "").strip()
-
-# Verificar si Cloudinary está configurado (todas las variables deben tener valor)
-CLOUDINARY_CONFIGURED = bool(
-    CLOUDINARY_CLOUD_NAME and 
-    CLOUDINARY_API_KEY and 
-    CLOUDINARY_API_SECRET
-)
-
-if CLOUDINARY_CONFIGURED:
-    try:
-        import cloudinary
-        import cloudinary.uploader
-        import cloudinary.api
-        
-        cloudinary.config(
-            cloud_name=CLOUDINARY_CLOUD_NAME,
-            api_key=CLOUDINARY_API_KEY,
-            api_secret=CLOUDINARY_API_SECRET,
-        )
-        DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
-        
-        # Log para verificar en producción (siempre mostrar en producción)
-        import sys
-        print(f"[SETTINGS] ✓ Cloudinary configurado: {CLOUDINARY_CLOUD_NAME}", file=sys.stderr)
-        print(f"[SETTINGS] Storage: {DEFAULT_FILE_STORAGE}", file=sys.stderr)
-    except Exception as e:
-        # Si hay error al configurar Cloudinary, usar almacenamiento local
-        import sys
-        print(f"[SETTINGS] ⚠ Error configurando Cloudinary: {str(e)}", file=sys.stderr)
-        DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-        CLOUDINARY_CONFIGURED = False
-else:
-    # En desarrollo local sin Cloudinary, usar almacenamiento local
-    import sys
-    print(f"[SETTINGS] ⚠ Cloudinary no configurado", file=sys.stderr)
-    print(f"[SETTINGS] Cloud Name: '{CLOUDINARY_CLOUD_NAME}'", file=sys.stderr)
-    print(f"[SETTINGS] API Key: {'Configurado' if CLOUDINARY_API_KEY else 'VACÍO'}", file=sys.stderr)
-    print(f"[SETTINGS] API Secret: {'Configurado' if CLOUDINARY_API_SECRET else 'VACÍO'}", file=sys.stderr)
-    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-
-# Para Django 5+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
