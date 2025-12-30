@@ -1,9 +1,10 @@
 from .models import Category
 
 def categorias_disponibles(request):
-    """
-    Devuelve todas las categorías para que siempre estén disponibles en templates.
-    """
+    try:
+        categorias = Category.objects.all()
+    except Exception:
+        categorias = []
     return {
-        'categories': Category.objects.all()
+        'categorias_disponibles': categorias
     }
