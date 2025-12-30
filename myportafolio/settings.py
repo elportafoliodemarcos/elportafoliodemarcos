@@ -48,9 +48,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# -------------------------
-# URLs & WSGI
-# -------------------------
 ROOT_URLCONF = 'myportafolio.urls'
 WSGI_APPLICATION = 'myportafolio.wsgi.application'
 
@@ -117,30 +114,35 @@ if DEBUG:
 # -------------------------
 # Cloudinary / Media
 # -------------------------
-CLOUDINARY_CLOUD_NAME = os.environ.get('CLOUDINARY_CLOUD_NAME', '').strip()
-CLOUDINARY_API_KEY = os.environ.get('CLOUDINARY_API_KEY', '').strip()
-CLOUDINARY_API_SECRET = os.environ.get('CLOUDINARY_API_SECRET', '').strip()
+# Usar variables de entorno exportadas o definidas en Render
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME', '').strip(),
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY', '').strip(),
+    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET', '').strip(),
+}
 
-if CLOUDINARY_CLOUD_NAME and CLOUDINARY_API_KEY and CLOUDINARY_API_SECRET:
-    import cloudinary
-    import cloudinary.uploader
-    import cloudinary.api
+# Determinar si Cloudinary está configurado
+CLOUDINARY_CONFIGURED = all(CLOUDINARY_STORAGE.values())
 
-    cloudinary.config(
-        cloud_name=CLOUDINARY_CLOUD_NAME,
-        api_key=CLOUDINARY_API_KEY,
-        api_secret=CLOUDINARY_API_SECRET
-    )
-
+if CLOUDINARY_CONFIGURED:
+    # Subir archivos a Cloudinary
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-    MEDIA_URL = '/media/'  # Cloudinary genera automáticamente la URL
+    MEDIA_URL = f'https://res.cloudinary.com/{CLOUDINARY_STORAGE["CLOUD_NAME"]}/image/upload/'
 else:
-    # Para desarrollo local si Cloudinary no está configurado
+    # Desarrollo local: guardar en /media
     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-    MEDIA_ROOT = BASE_DIR / 'media'
     MEDIA_URL = '/media/'
+    MEDIA_ROOT = BASE_DIR / 'media'
 
 # -------------------------
-# Default primary key
+# Default PK
 # -------------------------
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# -------------------------
+# Debug info (opcional, solo para verificar)
+# -------------------------
+if DEBUG:
+    print("DEBUG INFO - Storage activo:", DEFAULT_FILE_STORAGE)
+    print("DEBUG INFO - MEDIA_URL:", MEDIA_URL)
+    print("DEBUG INFO - Cloudinary configurado:", CLOUDINARY_CONFIGURED)
