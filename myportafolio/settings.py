@@ -127,25 +127,45 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # -------------------------
 # Cloudinary (solo si está configurado)
 # -------------------------
-CLOUDINARY_CLOUD_NAME = os.environ.get("CLOUDINARY_CLOUD_NAME", "")
-CLOUDINARY_API_KEY = os.environ.get("CLOUDINARY_API_KEY", "")
-CLOUDINARY_API_SECRET = os.environ.get("CLOUDINARY_API_SECRET", "")
+# Obtener variables de entorno y eliminar espacios en blanco
+CLOUDINARY_CLOUD_NAME = os.environ.get("CLOUDINARY_CLOUD_NAME", "").strip()
+CLOUDINARY_API_KEY = os.environ.get("CLOUDINARY_API_KEY", "").strip()
+CLOUDINARY_API_SECRET = os.environ.get("CLOUDINARY_API_SECRET", "").strip()
 
-# Solo usar Cloudinary si las credenciales están configuradas
-if CLOUDINARY_CLOUD_NAME and CLOUDINARY_API_KEY and CLOUDINARY_API_SECRET:
-    import cloudinary
-    import cloudinary.uploader
-    import cloudinary.api
-    
-    cloudinary.config(
-        cloud_name=CLOUDINARY_CLOUD_NAME,
-        api_key=CLOUDINARY_API_KEY,
-        api_secret=CLOUDINARY_API_SECRET,
-    )
-    DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+# Verificar si Cloudinary está configurado (todas las variables deben tener valor)
+CLOUDINARY_CONFIGURED = bool(
+    CLOUDINARY_CLOUD_NAME and 
+    CLOUDINARY_API_KEY and 
+    CLOUDINARY_API_SECRET
+)
+
+if CLOUDINARY_CONFIGURED:
+    try:
+        import cloudinary
+        import cloudinary.uploader
+        import cloudinary.api
+        
+        cloudinary.config(
+            cloud_name=CLOUDINARY_CLOUD_NAME,
+            api_key=CLOUDINARY_API_KEY,
+            api_secret=CLOUDINARY_API_SECRET,
+        )
+        DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+        
+        # Log para verificar en producción (solo si DEBUG está activo)
+        if DEBUG:
+            print(f"✓ Cloudinary configurado: {CLOUDINARY_CLOUD_NAME}")
+    except Exception as e:
+        # Si hay error al configurar Cloudinary, usar almacenamiento local
+        if DEBUG:
+            print(f"⚠ Error configurando Cloudinary: {str(e)}")
+        DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+        CLOUDINARY_CONFIGURED = False
 else:
     # En desarrollo local sin Cloudinary, usar almacenamiento local
     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+    if DEBUG:
+        print("⚠ Cloudinary no configurado, usando almacenamiento local")
 
 # Para Django 5+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
