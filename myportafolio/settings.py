@@ -122,16 +122,23 @@ if DEBUG:
     STATICFILES_DIRS = [BASE_DIR / 'portafolio' / 'static']
 
 # -------------------------
-# Cloudinary (MEDIA)
+# Cloudinary (Media)
 # -------------------------
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
-    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
-    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME', '').strip(),
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY', '').strip(),
+    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET', '').strip(),
 }
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-MEDIA_URL = '/media/'
+CLOUDINARY_CONFIGURED = all(CLOUDINARY_STORAGE.values())
+
+if CLOUDINARY_CONFIGURED:
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    MEDIA_URL = f'https://res.cloudinary.com/{CLOUDINARY_STORAGE["CLOUD_NAME"]}/image/upload/'
+else:
+    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = BASE_DIR / 'media'
 
 # -------------------------
 # Default PK
