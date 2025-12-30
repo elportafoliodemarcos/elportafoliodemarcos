@@ -8,13 +8,15 @@
     <div id="galeriaCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             {% for banner in banners %}
+            {% if banner.image %}
             <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                <img src="{{ banner.imagen.url }}" class="d-block w-100" alt="{{ banner.titulo }}">
+                <img src="{{ banner.image.url }}" class="d-block w-100" alt="{{ banner.title }}">
                 <div class="carousel-caption">
-                    <h5>{{ banner.titulo }}</h5>
-                    <p>{{ banner.descripcion }}</p>
+                    <h5>{{ banner.title }}</h5>
+                    <p>{{ banner.description }}</p>
                 </div>
             </div>
+            {% endif %}
             {% endfor %}
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#galeriaCarousel" data-bs-slide="prev">
@@ -31,20 +33,20 @@
 
 {% block content %}
 <div class="container category-section">
-   <h2 class="category-title">
-    {% trans "Galería de Fotos" %}
-   </h2>
+    <h2 class="category-title">{% trans "Galería de Fotos" %}</h2>
     <div class="row">
         {% for foto in fotos %}
+        {% if foto.image %}
         <div class="col-md-4 mb-4">
             <div class="photo-card">
-                <img src="{{ foto.imagen.url }}" alt="{{ foto.titulo }}">
+                <img src="{{ foto.image.url }}" alt="{{ foto.title }}">
                 <div class="info">
-                    <h5>{{ foto.titulo }}</h5>
-                    <p>{{ foto.descripcion }}</p>
+                    <h5>{{ foto.title }}</h5>
+                    <p>{{ foto.description }}</p>
                 </div>
             </div>
         </div>
+        {% endif %}
         {% endfor %}
     </div>
 </div>

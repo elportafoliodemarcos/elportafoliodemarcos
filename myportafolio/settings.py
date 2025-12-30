@@ -1,27 +1,24 @@
 import os
 from pathlib import Path
 from django.utils.translation import gettext_lazy as _
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
 
+# -------------------------
+# Rutas y seguridad
+# -------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# =======================
-# 🔐 SEGURIDAD
-# =======================
-SECRET_KEY = 'tu-secreto-aqui'
-DEBUG = False
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'tu-secreto-local')
+DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = [
     "elportafoliodemarcos.onrender.com",
     "localhost",
-    "127.0.0.1",
+    "127.0.0.1"
 ]
 
-# =======================
-# 📦 APLICACIONES
-# =======================
+# -------------------------
+# Apps instaladas
+# -------------------------
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -29,21 +26,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    # Cloudinary
     'cloudinary',
     'cloudinary_storage',
-
     'portafolio',
 ]
 
-# =======================
-# 🧱 MIDDLEWARE
-# =======================
+# -------------------------
+# Middleware
+# -------------------------
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -53,15 +46,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# =======================
-# 🌐 URLS / WSGI
-# =======================
 ROOT_URLCONF = 'myportafolio.urls'
 WSGI_APPLICATION = 'myportafolio.wsgi.application'
 
-# =======================
-# 🎨 TEMPLATES
-# =======================
+# -------------------------
+# Templates y context processors
+# -------------------------
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -73,15 +63,16 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # Context processor seguro
                 'portafolio.context_processors.categorias_disponibles',
             ],
         },
     },
 ]
 
-# =======================
-# 🗄️ BASE DE DATOS
-# =======================
+# -------------------------
+# Base de datos (SQLite)
+# -------------------------
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -89,9 +80,9 @@ DATABASES = {
     }
 }
 
-# =======================
-# 🔑 PASSWORDS
-# =======================
+# -------------------------
+# Contraseñas
+# -------------------------
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -99,9 +90,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-# =======================
-# 🌍 IDIOMAS
-# =======================
+# -------------------------
+# Internacionalización
+# -------------------------
 LANGUAGE_CODE = 'es'
 TIME_ZONE = 'UTC'
 USE_I18N = True
@@ -117,45 +108,44 @@ LANGUAGES = [
     ('fr', _('Français')),
 ]
 
-LOCALE_PATHS = [
-    os.path.join(BASE_DIR, 'locale'),
-]
+LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
 
-# =======================
-# 🎯 STATIC FILES
-# =======================
+# -------------------------
+# Archivos estáticos y multimedia
+# -------------------------
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-if DEBUG:
-    STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'portafolio/static')
-    ]
-
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-# =======================
-# ☁️ CLOUDINARY (MEDIA)
-# =======================
-cloudinary.config(
-    cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
-    api_key=os.getenv("CLOUDINARY_API_KEY"),
-    api_secret=os.getenv("CLOUDINARY_API_SECRET"),
-)
+if DEBUG:
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'portafolio/static')]
 
-DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+# Configuración de Media Files (para desarrollo local)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-MEDIA_URL = None
-MEDIA_ROOT = None
+# -------------------------
+# Cloudinary (solo si está configurado)
+# -------------------------
+CLOUDINARY_CLOUD_NAME = os.environ.get("CLOUDINARY_CLOUD_NAME", "")
+CLOUDINARY_API_KEY = os.environ.get("CLOUDINARY_API_KEY", "")
+CLOUDINARY_API_SECRET = os.environ.get("CLOUDINARY_API_SECRET", "")
 
-# =======================
-# ⚙️ DEFAULTS
-# =======================
+# Solo usar Cloudinary si las credenciales están configuradas
+if CLOUDINARY_CLOUD_NAME and CLOUDINARY_API_KEY and CLOUDINARY_API_SECRET:
+    import cloudinary
+    import cloudinary.uploader
+    import cloudinary.api
+    
+    cloudinary.config(
+        cloud_name=CLOUDINARY_CLOUD_NAME,
+        api_key=CLOUDINARY_API_KEY,
+        api_secret=CLOUDINARY_API_SECRET,
+    )
+    DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+else:
+    # En desarrollo local sin Cloudinary, usar almacenamiento local
+    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+
+# Para Django 5+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# =======================
-# 📧 MAILJET
-# =======================
-MAILJET_API_KEY = '568e3f71cbdac8f7acc3e807782f43d5'
-MAILJET_API_SECRET = 'acb4800a243dc23050f042d333ffbcaf'
-DEFAULT_FROM_EMAIL = 'elportafoliodemarcos@gmail.com'
