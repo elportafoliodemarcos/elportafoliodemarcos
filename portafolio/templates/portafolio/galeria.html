@@ -39,11 +39,8 @@
         {% if foto.image %}
         <div class="col-md-4 mb-4">
             <div class="photo-card">
-                {% if foto.image.url %}
+                <!-- Aseguramos que se use MEDIA_URL completo -->
                 <img src="{{ foto.image.url }}" alt="{{ foto.title }}">
-                {% else %}
-                <img src="https://via.placeholder.com/400x300?text=Sin+imagen" alt="Sin imagen">
-                {% endif %}
                 <div class="info">
                     <h5>{{ foto.title }}</h5>
                     <p>{{ foto.description }}</p>

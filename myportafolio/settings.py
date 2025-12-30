@@ -130,13 +130,12 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET', '').strip(),
 }
 
-CLOUDINARY_CONFIGURED = all(CLOUDINARY_STORAGE.values())
-
-if CLOUDINARY_CONFIGURED:
+# Si Cloudinary está configurado correctamente
+if all(CLOUDINARY_STORAGE.values()):
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
     MEDIA_URL = f'https://res.cloudinary.com/{CLOUDINARY_STORAGE["CLOUD_NAME"]}/image/upload/'
 else:
-    # Para desarrollo local si Cloudinary no está configurado
+    # Para desarrollo local
     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
     MEDIA_URL = '/media/'
     MEDIA_ROOT = BASE_DIR / 'media'
