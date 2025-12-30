@@ -152,20 +152,24 @@ if CLOUDINARY_CONFIGURED:
         )
         DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
         
-        # Log para verificar en producción (solo si DEBUG está activo)
-        if DEBUG:
-            print(f"✓ Cloudinary configurado: {CLOUDINARY_CLOUD_NAME}")
+        # Log para verificar en producción (siempre mostrar en producción)
+        import sys
+        print(f"[SETTINGS] ✓ Cloudinary configurado: {CLOUDINARY_CLOUD_NAME}", file=sys.stderr)
+        print(f"[SETTINGS] Storage: {DEFAULT_FILE_STORAGE}", file=sys.stderr)
     except Exception as e:
         # Si hay error al configurar Cloudinary, usar almacenamiento local
-        if DEBUG:
-            print(f"⚠ Error configurando Cloudinary: {str(e)}")
+        import sys
+        print(f"[SETTINGS] ⚠ Error configurando Cloudinary: {str(e)}", file=sys.stderr)
         DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
         CLOUDINARY_CONFIGURED = False
 else:
     # En desarrollo local sin Cloudinary, usar almacenamiento local
+    import sys
+    print(f"[SETTINGS] ⚠ Cloudinary no configurado", file=sys.stderr)
+    print(f"[SETTINGS] Cloud Name: '{CLOUDINARY_CLOUD_NAME}'", file=sys.stderr)
+    print(f"[SETTINGS] API Key: {'Configurado' if CLOUDINARY_API_KEY else 'VACÍO'}", file=sys.stderr)
+    print(f"[SETTINGS] API Secret: {'Configurado' if CLOUDINARY_API_SECRET else 'VACÍO'}", file=sys.stderr)
     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-    if DEBUG:
-        print("⚠ Cloudinary no configurado, usando almacenamiento local")
 
 # Para Django 5+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
