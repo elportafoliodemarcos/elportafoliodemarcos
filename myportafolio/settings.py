@@ -2,9 +2,6 @@ import os
 from pathlib import Path
 from django.utils.translation import gettext_lazy as _
 
-# -------------------------
-# Base
-# -------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'clave-local')
@@ -16,9 +13,6 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
 ]
 
-# -------------------------
-# Apps
-# -------------------------
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -33,9 +27,6 @@ INSTALLED_APPS = [
     'portafolio',
 ]
 
-# -------------------------
-# Middleware
-# -------------------------
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -51,9 +42,6 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'myportafolio.urls'
 WSGI_APPLICATION = 'myportafolio.wsgi.application'
 
-# -------------------------
-# Templates
-# -------------------------
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -71,9 +59,6 @@ TEMPLATES = [
     },
 ]
 
-# -------------------------
-# Database
-# -------------------------
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -81,39 +66,11 @@ DATABASES = {
     }
 }
 
-# -------------------------
-# Password validation
-# -------------------------
-AUTH_PASSWORD_VALIDATORS = [
-    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
-]
-
-# -------------------------
-# Internacionalización
-# -------------------------
 LANGUAGE_CODE = 'es'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-LANGUAGES = [
-    ('es', _('Español')),
-    ('en', _('English')),
-    ('it', _('Italiano')),
-    ('de', _('Deutsch')),
-    ('nl', _('Nederlands')),
-    ('pt', _('Português')),
-    ('fr', _('Français')),
-]
-
-LOCALE_PATHS = [BASE_DIR / 'locale']
-
-# -------------------------
-# Static files
-# -------------------------
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
@@ -121,26 +78,18 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 if DEBUG:
     STATICFILES_DIRS = [BASE_DIR / 'portafolio' / 'static']
 
-# -------------------------
-# Cloudinary (Media)
-# -------------------------
+# --- Cloudinary / Media ---
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME', '').strip(),
     'API_KEY': os.environ.get('CLOUDINARY_API_KEY', '').strip(),
     'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET', '').strip(),
 }
 
-# Si Cloudinary está configurado correctamente
 if all(CLOUDINARY_STORAGE.values()):
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
     MEDIA_URL = f'https://res.cloudinary.com/{CLOUDINARY_STORAGE["CLOUD_NAME"]}/image/upload/'
 else:
-    # Para desarrollo local
+    # desarrollo local si Cloudinary no está configurado
     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
     MEDIA_URL = '/media/'
     MEDIA_ROOT = BASE_DIR / 'media'
-
-# -------------------------
-# Default PK
-# -------------------------
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
