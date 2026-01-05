@@ -1,5 +1,6 @@
 from django.db import models
 
+# Modelo de categoría
 class Category(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
@@ -9,9 +10,10 @@ class Category(models.Model):
         return self.name
 
 
+# Modelo de foto (subida a Cloudinary)
 class Photo(models.Model):
     title = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='photos/')
+    image = models.ImageField(upload_to='photos/')  # Las imágenes se guardarán automáticamente en Cloudinary
     description = models.TextField(blank=True)
     is_public = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)

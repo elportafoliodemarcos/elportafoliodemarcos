@@ -114,22 +114,23 @@ if DEBUG:
 # -------------------------
 # Cloudinary / Media
 # -------------------------
-# Usar variables de entorno exportadas o definidas en Render
+# Usar las variables de entorno de Cloudinary definidas en Render
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME', '').strip(),
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME', 'dfuypc2jq'),  # Asegúrate de que este es tu Cloud Name
     'API_KEY': os.environ.get('CLOUDINARY_API_KEY', '').strip(),
     'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET', '').strip(),
 }
 
-# Determinar si Cloudinary está configurado
+# Verificar si Cloudinary está correctamente configurado
 CLOUDINARY_CONFIGURED = all(CLOUDINARY_STORAGE.values())
 
+# Configuración de almacenamiento en Cloudinary o en el sistema de archivos local
 if CLOUDINARY_CONFIGURED:
-    # Subir archivos a Cloudinary
+    # Usar Cloudinary para el almacenamiento de medios
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
     MEDIA_URL = f'https://res.cloudinary.com/{CLOUDINARY_STORAGE["CLOUD_NAME"]}/image/upload/'
 else:
-    # Desarrollo local: guardar en /media
+    # Para desarrollo local: almacenar archivos en /media
     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
     MEDIA_URL = '/media/'
     MEDIA_ROOT = BASE_DIR / 'media'
@@ -140,7 +141,7 @@ else:
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # -------------------------
-# Debug info (opcional, solo para verificar)
+# Debug info (solo para verificar)
 # -------------------------
 if DEBUG:
     print("DEBUG INFO - Storage activo:", DEFAULT_FILE_STORAGE)
