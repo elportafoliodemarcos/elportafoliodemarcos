@@ -15,5 +15,6 @@ urlpatterns += i18n_patterns(
     path('acerca/', views.acerca, name='acerca'),
     path('galeria/', views.galeria, name='galeria'),
     path('categoria/<slug:slug>/', views.categoria, name='categoria'),
+    path('colaboracion/', views.colaboracion, name='colaboracion'),  # <-- agregada
     path('contacto/', views.contacto, name='contacto'),
 )

@@ -152,17 +152,15 @@ EMAIL_HOST = "in-v3.mailjet.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-# -----------------------------
-# Variables de entorno en Render
-# -----------------------------
-# API Key pública de Mailjet
-EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")  
+# Variables de entorno de Mailjet (en Render)
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "")  # clave pública
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")  # clave privada
 
-# API Key privada de Mailjet
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")  
+# Validación mínima: si no están definidas, Django usará un backend dummy en dev
+if DEBUG and (not EMAIL_HOST_USER or not EMAIL_HOST_PASSWORD):
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+    print("⚠️ DEBUG: Emails se mostrarán en consola, no se enviarán")
 
-# -----------------------------
 # Desde qué correo se envían los emails (debe estar verificado en Mailjet)
-# -----------------------------
 DEFAULT_FROM_EMAIL = "elportafoliodemarcos@gmail.com"
 CONTACT_EMAIL = DEFAULT_FROM_EMAIL

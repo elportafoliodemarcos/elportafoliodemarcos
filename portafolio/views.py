@@ -74,3 +74,22 @@ def contacto(request):
         'mensaje_enviado': mensaje_enviado,
         'error_envio': error_envio,
     })
+
+# -------------------------
+# Colaboración / Donativos
+# -------------------------
+def colaboracion(request):
+    opciones = [0.5, 5, 10, 20]  # opciones de donativo
+    mensaje_enviado = None
+    tarjeta_enviada = None
+
+    if request.method == "POST":
+        tarjeta_enviada = request.POST.get("tarjeta")
+        monto = request.POST.get("monto")
+        mensaje_enviado = monto  # solo mostramos el monto en la página, puedes añadir lógica de pago real
+
+    return render(request, 'portafolio/colaboracion.html', {
+        'opciones': opciones,
+        'mensaje_enviado': mensaje_enviado,
+        'tarjeta_enviada': tarjeta_enviada,
+    })
