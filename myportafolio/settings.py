@@ -141,3 +141,28 @@ cloudinary.config(
 # DEFAULT PK
 # -------------------------
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# ==============================
+# Email (Mailjet)
+# ==============================
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+# Servidor SMTP de Mailjet
+EMAIL_HOST = "in-v3.mailjet.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+# -----------------------------
+# Variables de entorno en Render
+# -----------------------------
+# API Key pública de Mailjet
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")  
+
+# API Key privada de Mailjet
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")  
+
+# -----------------------------
+# Desde qué correo se envían los emails (debe estar verificado en Mailjet)
+# -----------------------------
+DEFAULT_FROM_EMAIL = "elportafoliodemarcos@gmail.com"
+CONTACT_EMAIL = DEFAULT_FROM_EMAIL

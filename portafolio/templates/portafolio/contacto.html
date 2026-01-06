@@ -10,6 +10,7 @@
 
     <form method="post" class="shadow p-4 bg-white rounded mx-auto" style="max-width: 600px; margin-top: 60px;">
         {% csrf_token %}
+        
         <div class="mb-3">
             <label class="form-label">{% trans "Nombre" %}</label>
             <input type="text" name="nombre" class="form-control" required>
@@ -29,9 +30,17 @@
             <button type="submit" class="btn btn-dark">{% trans "Enviar mensaje" %}</button>
         </div>
 
+        {# Mensaje de éxito #}
         {% if mensaje_enviado %}
-            <div class="mensaje-enviado mt-3 text-center">
+            <div class="mensaje-enviado mt-3 text-center text-success">
                 ✅ {% trans "Tu mensaje ha sido enviado correctamente." %}
+            </div>
+        {% endif %}
+
+        {# Mensaje de error #}
+        {% if error_envio %}
+            <div class="mensaje-error mt-3 text-center text-danger">
+                ❌ {{ error_envio }}
             </div>
         {% endif %}
     </form>

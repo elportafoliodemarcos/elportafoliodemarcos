@@ -1,4 +1,6 @@
 from django.shortcuts import render, get_object_or_404
+from django.core.mail import send_mail
+from django.conf import settings
 from .models import Photo, Category
 
 # -------------------------
@@ -41,38 +43,34 @@ def acerca(request):
     return render(request, 'portafolio/acerca.html', {'texto': acerca_texto})
 
 # -------------------------
-# Contacto (solo formulario interno, sin Mailjet)
+# Contacto (con Mailjet)
 # -------------------------
 def contacto(request):
     mensaje_enviado = False
+    error_envio = None
+
     if request.method == "POST":
         nombre = request.POST.get("nombre")
         email = request.POST.get("email")
         mensaje = request.POST.get("mensaje")
-        # Aquí podrías guardar el mensaje en DB o enviarlo a tu email usando otra forma
-        mensaje_enviado = True  # Solo para indicar que se envió
-    return render(request, 'portafolio/contacto.html', {'mensaje_enviado': mensaje_enviado})
 
-# -------------------------
-# Colaboración
-# -------------------------
-def colaboracion(request):
-    opciones = [0.5, 5, 10, 20]
-    mensaje_enviado = None
-    tarjeta_enviada = None
+        asunto = f"Nuevo mensaje de contacto de {nombre}"
+        mensaje_completo = f"De: {nombre} <{email}>\n\nMensaje:\n{mensaje}"
 
-    if request.method == "POST":
-        monto = request.POST.get("monto")
-        tarjeta = request.POST.get("tarjeta")
-        if monto:
-            try:
-                mensaje_enviado = float(monto)
-            except ValueError:
-                mensaje_enviado = monto
-            tarjeta_enviada = tarjeta
+        try:
+            send_mail(
+                asunto,
+                mensaje_completo,
+                settings.DEFAULT_FROM_EMAIL,           # remitente (verificado en Mailjet)
+                [settings.DEFAULT_FROM_EMAIL],         # destinatario (tu correo)
+                fail_silently=False
+            )
+            mensaje_enviado = True
+        except Exception as e:
+            error_envio = str(e)
+            mensaje_enviado = False
 
-    return render(request, 'portafolio/colaboracion.html', {
-        'opciones': opciones,
+    return render(request, 'portafolio/contacto.html', {
         'mensaje_enviado': mensaje_enviado,
-        'tarjeta_enviada': tarjeta_enviada,
+        'error_envio': error_envio,
     })
