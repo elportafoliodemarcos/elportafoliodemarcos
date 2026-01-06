@@ -30,17 +30,13 @@
             <button type="submit" class="btn btn-dark">{% trans "Enviar mensaje" %}</button>
         </div>
 
-        {# Mensaje de éxito #}
+        {# Mensaje de éxito o error #}
         {% if mensaje_enviado %}
             <div class="mensaje-enviado mt-3 text-center text-success">
-                ✅ {% trans "Tu mensaje ha sido enviado correctamente." %}
-            </div>
-        {% endif %}
-
-        {# Mensaje de error #}
-        {% if error_envio %}
-            <div class="mensaje-error mt-3 text-center text-danger">
-                ❌ {{ error_envio }}
+                ✅ {% trans "Tu mensaje ha sido recibido." %}
+                {% if error_envio %}
+                    <br>❌ {{ error_envio }}
+                {% endif %}
             </div>
         {% endif %}
     </form>

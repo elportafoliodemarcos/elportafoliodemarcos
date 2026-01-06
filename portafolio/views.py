@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404
-from django.core.mail import send_mail
 from django.conf import settings
 from .models import Photo, Category
+import requests
+import json
 
 # -------------------------
 # Página de inicio
@@ -43,36 +44,55 @@ def acerca(request):
     return render(request, 'portafolio/acerca.html', {'texto': acerca_texto})
 
 # -------------------------
-# Contacto (con Mailjet)
+# Función de ayuda para enviar email via Mailjet API
+# -------------------------
+def enviar_mailjet(nombre, email, mensaje):
+    url = "https://api.mailjet.com/v3.1/send"
+    data = {
+        "Messages": [
+            {
+                "From": {"Email": settings.DEFAULT_FROM_EMAIL, "Name": "El Portafolio de Marcos"},
+                "To": [{"Email": settings.DEFAULT_FROM_EMAIL, "Name": "Marcos"}],
+                "Subject": f"Nuevo mensaje de contacto de {nombre}",
+                "TextPart": f"De: {nombre} <{email}>\n\nMensaje:\n{mensaje}",
+            }
+        ]
+    }
+    try:
+        response = requests.post(
+            url,
+            auth=(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD),
+            json=data,
+            timeout=15  # tiempo de espera seguro
+        )
+        response.raise_for_status()  # lanza excepción si status != 2xx
+        return response
+    except requests.exceptions.RequestException as e:
+        # Mostramos el error completo en consola
+        print("ERROR enviando email via Mailjet:", e)
+        print("Payload enviado:", json.dumps(data, indent=2))
+        return None
+
+# -------------------------
+# Contacto
 # -------------------------
 def contacto(request):
     mensaje_enviado = False
     error_envio = None
 
     if request.method == "POST":
-        nombre = request.POST.get("nombre", "").strip()
-        email = request.POST.get("email", "").strip()
-        mensaje = request.POST.get("mensaje", "").strip()
+        nombre = request.POST.get("nombre")
+        email = request.POST.get("email")
+        mensaje = request.POST.get("mensaje")
 
-        if nombre and email and mensaje:
-            asunto = f"Nuevo mensaje de contacto de {nombre}"
-            mensaje_completo = f"De: {nombre} <{email}>\n\nMensaje:\n{mensaje}"
-
-            try:
-                send_mail(
-                    asunto,
-                    mensaje_completo,
-                    settings.DEFAULT_FROM_EMAIL,       # remitente (verificado en Mailjet)
-                    [settings.DEFAULT_FROM_EMAIL],     # destinatario
-                    fail_silently=False
-                )
+        try:
+            resp = enviar_mailjet(nombre, email, mensaje)
+            if resp and resp.status_code == 200:
                 mensaje_enviado = True
-            except Exception as e:
-                error_envio = str(e)
-                print("Error enviando email:", error_envio)  # Para depuración en consola
-                mensaje_enviado = False
-        else:
-            error_envio = "Por favor completa todos los campos."
+            else:
+                error_envio = "Ocurrió un error enviando el email. Revisa la consola para más detalles."
+        except Exception as e:
+            error_envio = str(e)
 
     return render(request, 'portafolio/contacto.html', {
         'mensaje_enviado': mensaje_enviado,

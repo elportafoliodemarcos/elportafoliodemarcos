@@ -115,27 +115,16 @@ if DEBUG:
     STATICFILES_DIRS = [BASE_DIR / "portafolio" / "static"]
 
 # =========================================================
-# 🔥🔥🔥 CLOUDINARY — ESTA ES LA PARTE CLAVE 🔥🔥🔥
+# 🔥 CLOUDINARY
 # =========================================================
-
 import cloudinary
 
 cloudinary.config(
-    # ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇
-    # 👉 ESTAS 3 CLAVES DEBEN EXISTIR EN RENDER
-    # 👉 NO SE ESCRIBEN AQUÍ A MANO
-    # 👉 Render las inyecta automáticamente
-    # ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇
     cloud_name=os.environ.get("CLOUDINARY_CLOUD_NAME"),
     api_key=os.environ.get("CLOUDINARY_API_KEY"),
     api_secret=os.environ.get("CLOUDINARY_API_SECRET"),
     secure=True,
 )
-
-# ❌ NO DEFAULT_FILE_STORAGE
-# ❌ NO MEDIA_URL
-# ❌ NO MEDIA_ROOT
-# CloudinaryField se encarga solo
 
 # -------------------------
 # DEFAULT PK
@@ -145,22 +134,19 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # ==============================
 # Email (Mailjet)
 # ==============================
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+from mailjet_rest import Client
 
-# Servidor SMTP de Mailjet
-EMAIL_HOST = "in-v3.mailjet.com"
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-
-# Variables de entorno de Mailjet (en Render)
-EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "")  # clave pública
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")  # clave privada
-
-# Validación mínima: si no están definidas, Django usará un backend dummy en dev
-if DEBUG and (not EMAIL_HOST_USER or not EMAIL_HOST_PASSWORD):
-    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-    print("⚠️ DEBUG: Emails se mostrarán en consola, no se enviarán")
-
-# Desde qué correo se envían los emails (debe estar verificado en Mailjet)
+MAILJET_API_KEY = os.environ.get("EMAIL_HOST_USER")        # clave pública
+MAILJET_API_SECRET = os.environ.get("EMAIL_HOST_PASSWORD") # clave privada
 DEFAULT_FROM_EMAIL = "elportafoliodemarcos@gmail.com"
 CONTACT_EMAIL = DEFAULT_FROM_EMAIL
+
+# Backend de Mailjet
+if MAILJET_API_KEY and MAILJET_API_SECRET:
+    EMAIL_BACKEND = "portafolio.mailjet_backend.MailjetBackend"
+else:
+    # Si faltan claves en dev, usar consola
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+    if DEBUG:
+        print("⚠️ DEBUG: Emails se mostrarán en consola, no se enviarán")
+
