@@ -3,12 +3,13 @@ from pathlib import Path
 from django.utils.translation import gettext_lazy as _
 
 # -------------------------
-# Base
+# BASE
 # -------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'clave-local')
-DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "clave-local")
+
+DEBUG = os.environ.get("DJANGO_DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = [
     "elportafoliodemarcos.onrender.com",
@@ -17,133 +18,126 @@ ALLOWED_HOSTS = [
 ]
 
 # -------------------------
-# Apps
+# APPS
 # -------------------------
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
 
-    'cloudinary',
-    'cloudinary_storage',
+    # Cloudinary
+    "cloudinary",
+    "cloudinary_storage",
 
-    'portafolio',
+    # App
+    "portafolio",
 ]
 
 # -------------------------
-# Middleware
+# MIDDLEWARE
 # -------------------------
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = 'myportafolio.urls'
-WSGI_APPLICATION = 'myportafolio.wsgi.application'
+ROOT_URLCONF = "myportafolio.urls"
+WSGI_APPLICATION = "myportafolio.wsgi.application"
 
 # -------------------------
-# Templates
+# TEMPLATES
 # -------------------------
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'portafolio' / 'templates'],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                'portafolio.context_processors.categorias_disponibles',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [BASE_DIR / "portafolio" / "templates"],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+                "portafolio.context_processors.categorias_disponibles",
             ],
         },
     },
 ]
 
 # -------------------------
-# Database
+# DATABASE
 # -------------------------
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
 # -------------------------
-# Internacionalización
+# I18N
 # -------------------------
-LANGUAGE_CODE = 'es'
-TIME_ZONE = 'UTC'
+LANGUAGE_CODE = "es"
+TIME_ZONE = "UTC"
 USE_I18N = True
 USE_TZ = True
 
 LANGUAGES = [
-    ('es', _('Español')),
-    ('en', _('English')),
-    ('it', _('Italiano')),
-    ('de', _('Deutsch')),
-    ('nl', _('Nederlands')),
-    ('pt', _('Português')),
-    ('fr', _('Français')),
+    ("es", _("Español")),
+    ("en", _("English")),
+    ("it", _("Italiano")),
+    ("de", _("Deutsch")),
+    ("nl", _("Nederlands")),
+    ("pt", _("Português")),
+    ("fr", _("Français")),
 ]
 
-LOCALE_PATHS = [BASE_DIR / 'locale']
+LOCALE_PATHS = [BASE_DIR / "locale"]
 
 # -------------------------
-# Static files
+# STATIC FILES
 # -------------------------
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 if DEBUG:
-    STATICFILES_DIRS = [BASE_DIR / 'portafolio' / 'static']
+    STATICFILES_DIRS = [BASE_DIR / "portafolio" / "static"]
+
+# =========================================================
+# 🔥🔥🔥 CLOUDINARY — ESTA ES LA PARTE CLAVE 🔥🔥🔥
+# =========================================================
+
+import cloudinary
+
+cloudinary.config(
+    # ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇
+    # 👉 ESTAS 3 CLAVES DEBEN EXISTIR EN RENDER
+    # 👉 NO SE ESCRIBEN AQUÍ A MANO
+    # 👉 Render las inyecta automáticamente
+    # ⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇⬇
+    cloud_name=os.environ.get("CLOUDINARY_CLOUD_NAME"),
+    api_key=os.environ.get("CLOUDINARY_API_KEY"),
+    api_secret=os.environ.get("CLOUDINARY_API_SECRET"),
+    secure=True,
+)
+
+# ❌ NO DEFAULT_FILE_STORAGE
+# ❌ NO MEDIA_URL
+# ❌ NO MEDIA_ROOT
+# CloudinaryField se encarga solo
 
 # -------------------------
-# Cloudinary / Media
+# DEFAULT PK
 # -------------------------
-# Usar las variables de entorno de Cloudinary definidas en Render
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME', 'dfuypc2jq'),  # Asegúrate de que este es tu Cloud Name
-    'API_KEY': os.environ.get('CLOUDINARY_API_KEY', '').strip(),
-    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET', '').strip(),
-}
-
-# Verificar si Cloudinary está correctamente configurado
-CLOUDINARY_CONFIGURED = all(CLOUDINARY_STORAGE.values())
-
-# Configuración de almacenamiento en Cloudinary o en el sistema de archivos local
-if CLOUDINARY_CONFIGURED:
-    # Usar Cloudinary para el almacenamiento de medios
-    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-    MEDIA_URL = f'https://res.cloudinary.com/{CLOUDINARY_STORAGE["CLOUD_NAME"]}/image/upload/'
-else:
-    # Para desarrollo local: almacenar archivos en /media
-    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-    MEDIA_URL = '/media/'
-    MEDIA_ROOT = BASE_DIR / 'media'
-
-# -------------------------
-# Default PK
-# -------------------------
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# -------------------------
-# Debug info (solo para verificar)
-# -------------------------
-if DEBUG:
-    print("DEBUG INFO - Storage activo:", DEFAULT_FILE_STORAGE)
-    print("DEBUG INFO - MEDIA_URL:", MEDIA_URL)
-    print("DEBUG INFO - Cloudinary configurado:", CLOUDINARY_CONFIGURED)
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
