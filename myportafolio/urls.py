@@ -18,6 +18,7 @@ urlpatterns += i18n_patterns(
     path('galeria/', views.galeria, name='galeria'),
     path('categoria/<slug:slug>/', views.categoria, name='categoria'),
     path('colaboracion/', views.colaboracion, name='colaboracion'),
+    # path('colaboracion/', views.colaboracion, name='colaboracion'),
     path('contacto/', views.contacto, name='contacto'),
 )
 
