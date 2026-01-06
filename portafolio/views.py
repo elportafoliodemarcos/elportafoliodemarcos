@@ -50,25 +50,29 @@ def contacto(request):
     error_envio = None
 
     if request.method == "POST":
-        nombre = request.POST.get("nombre")
-        email = request.POST.get("email")
-        mensaje = request.POST.get("mensaje")
+        nombre = request.POST.get("nombre", "").strip()
+        email = request.POST.get("email", "").strip()
+        mensaje = request.POST.get("mensaje", "").strip()
 
-        asunto = f"Nuevo mensaje de contacto de {nombre}"
-        mensaje_completo = f"De: {nombre} <{email}>\n\nMensaje:\n{mensaje}"
+        if nombre and email and mensaje:
+            asunto = f"Nuevo mensaje de contacto de {nombre}"
+            mensaje_completo = f"De: {nombre} <{email}>\n\nMensaje:\n{mensaje}"
 
-        try:
-            send_mail(
-                asunto,
-                mensaje_completo,
-                settings.DEFAULT_FROM_EMAIL,           # remitente (verificado en Mailjet)
-                [settings.DEFAULT_FROM_EMAIL],         # destinatario (tu correo)
-                fail_silently=False
-            )
-            mensaje_enviado = True
-        except Exception as e:
-            error_envio = str(e)
-            mensaje_enviado = False
+            try:
+                send_mail(
+                    asunto,
+                    mensaje_completo,
+                    settings.DEFAULT_FROM_EMAIL,       # remitente (verificado en Mailjet)
+                    [settings.DEFAULT_FROM_EMAIL],     # destinatario
+                    fail_silently=False
+                )
+                mensaje_enviado = True
+            except Exception as e:
+                error_envio = str(e)
+                print("Error enviando email:", error_envio)  # Para depuración en consola
+                mensaje_enviado = False
+        else:
+            error_envio = "Por favor completa todos los campos."
 
     return render(request, 'portafolio/contacto.html', {
         'mensaje_enviado': mensaje_enviado,
