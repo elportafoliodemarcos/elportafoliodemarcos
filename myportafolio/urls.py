@@ -1,8 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.i18n import i18n_patterns
-from django.conf import settings
-from django.conf.urls.static import static
 from portafolio import views
 
 # URLs fuera de i18n
@@ -19,7 +17,3 @@ urlpatterns += i18n_patterns(
     path('categoria/<slug:slug>/', views.categoria, name='categoria'),
     path('contacto/', views.contacto, name='contacto'),
 )
-
-# Media SOLO en desarrollo
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL)
