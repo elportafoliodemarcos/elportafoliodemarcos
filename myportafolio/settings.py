@@ -9,7 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "clave-local")
 
-DEBUG = os.environ.get("DJANGO_DEBUG", "False") == "True"
+DEBUG = True
 
 ALLOWED_HOSTS = [
     "elportafoliodemarcos.onrender.com",
