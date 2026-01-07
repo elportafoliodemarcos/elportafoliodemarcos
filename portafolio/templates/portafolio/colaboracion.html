@@ -9,78 +9,75 @@
         <h1 class="category-title text-center mb-5 border-bottom pb-3">{% trans "Apoyo al Proyecto" %}</h1>
 
         <p class="fs-5 text-center mb-6">
-            {% trans "Este proyecto se mantiene gracias a la pasión por la fotografía y al apoyo voluntario de quienes lo valoran.  Los donativos son opcionales y ayudan a mantener esta iniciativa viva." %}
+            {% trans "Este proyecto se mantiene gracias a la pasión por la fotografía y al apoyo voluntario de quienes lo valoran. Los donativos son opcionales y ayudan a mantener esta iniciativa viva." %}
         </p>
 
         <div class="row justify-content-center">
+
             {% for opcion in opciones %}
             <div class="col-md-4 mb-4">
-                <div class="card h-100 shadow p-3">
-                    <!-- Monto grande y en negrita -->
+                <div class="card h-100 shadow p-3 text-center">
                     <h3 style="font-size: 1.5rem; font-weight: bold;">€ {{ opcion|floatformat:2 }}</h3>
                     <p class="card-text">
-                        <!-- Monto grande y en negrita en la frase -->
                         Haz una donación de <strong>€ {{ opcion|floatformat:2 }}</strong> para apoyar el proyecto.
                     </p>
-                    <form action="" method="POST" class="donation-form">
-                        {% csrf_token %}
-                        <input type="hidden" name="monto" value="{{ opcion|floatformat:2 }}">
-                        <input type="hidden" name="tarjeta" value="{{ forloop.counter }}">
-                        <button type="submit" class="btn donar-btn mt-3">{% trans "Donar ahora" %}</button>
-                    </form>
-                    {% if tarjeta_enviada == forloop.counter|stringformat:"s" %}
-                        <div class="mensaje-enviado mt-2 text-center fw-bold text-success">
-                            <!-- Monto grande y en negrita en el mensaje -->
-                            ¡Muchas gracias! Tu donativo de <strong>€ {{ opcion|floatformat:2 }}</strong> ha sido registrado.
-                        </div>
+
+                    {% if opcion == 0.5 %}
+                        <div id="paypal-050"></div>
+                    {% elif opcion == 5 %}
+                        <div id="paypal-5"></div>
+                    {% elif opcion == 10 %}
+                        <div id="paypal-10"></div>
+                    {% elif opcion == 20 %}
+                        <div id="paypal-20"></div>
+                    {% elif opcion == 50 %}
+                        <div id="paypal-50"></div>
                     {% endif %}
                 </div>
             </div>
             {% endfor %}
 
-            <!-- Tarjeta fija de 50 € -->
+            <!-- MONTO LIBRE -->
             <div class="col-md-4 mb-4">
-                <div class="card h-100 shadow p-3">
-                    <h3 style="font-size: 1.5rem; font-weight: bold;">€ 50</h3>
-                    <p class="card-text">
-                        {% trans "Haz una donación de <strong>€ 50 </strong> para apoyar el proyecto." %}
-                    </p>
-                    <form action="" method="POST" class="donation-form">
-                        {% csrf_token %}
-                        <input type="hidden" name="monto" value="50.00">
-                        <input type="hidden" name="tarjeta" value="50">
-                        <button type="submit" class="btn donar-btn mt-3">{% trans "Donar ahora" %}</button>
-                    </form>
-                    {% if tarjeta_enviada == "50" %}
-                        <div class="mensaje-enviado mt-2 text-center fw-bold text-success">
-                            {% trans "¡Muchas gracias! Tu donativo de <strong>€ 50 </strong> ha sido registrado." %}
-                        </div>
-                    {% endif %}
-                </div>
-            </div>
+                <div class="card h-100 shadow p-3 text-center">
+                    <h3 style="font-size: 1.5rem; font-weight: bold;">{% trans "Monto libre" %}</h3>
+                    <p class="card-text">{% trans "Elige el monto que desees donar." %}</p>
 
-            <!-- Tarjeta de monto libre -->
-            <div class="col-md-4 mb-4">
-                <div class="card h-100 shadow p-3">
-                   
-                    <form action="" method="POST">
-                        {% csrf_token %}
-                        <input type="hidden" name="tarjeta" value="libre">
-                        <div class="form-group mb-3">
-                            <label for="donativo-monto" class="text-center-label">{% trans "Ingresa el monto:" %}</label>
-                            <input type="number" step="0.01" class="form-control" id="donativo-monto" name="monto" placeholder="{% trans 'Ej: 15' %}">
-                        </div>
-                        <button type="submit" class="btn donar-btn mt-3">{% trans "Donar ahora" %}</button>
-                    </form>
-                    {% if tarjeta_enviada == "libre" %}
-                        <div class="mensaje-enviado mt-2 text-center fw-bold text-success">
-                            {% blocktrans with mensaje_enviado=mensaje_enviado %}¡Muchas gracias! Tu donativo de <strong>€ {{ mensaje_enviado }}</strong> ha sido registrado.{% endblocktrans %}
-                        </div>
-                    {% endif %}
+                    <div id="paypal-libre"></div>
                 </div>
             </div>
 
         </div>
     </div>
 </section>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    paypal.HostedButtons({
+        hostedButtonId: "LWZ5YWW4SUDA2" // 0.50 €
+    }).render("#paypal-050");
+
+    paypal.HostedButtons({
+        hostedButtonId: "WU9NAKFTBUF9U" // 5 €
+    }).render("#paypal-5");
+
+    paypal.HostedButtons({
+        hostedButtonId: "8PSKN8ATVQTZY" // 10 €
+    }).render("#paypal-10");
+
+    paypal.HostedButtons({
+        hostedButtonId: "YXT39CD3Q9NNC" // 20 €
+    }).render("#paypal-20");
+
+    paypal.HostedButtons({
+        hostedButtonId: "PYXSCX8FMMJBE" // 50 €
+    }).render("#paypal-50");
+
+    paypal.HostedButtons({
+        hostedButtonId: "MHXT95DBPJNDL" // monto libre
+    }).render("#paypal-libre");
+
+});
+</script>
 {% endblock %}
