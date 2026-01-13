@@ -15,6 +15,9 @@ urlpatterns += i18n_patterns(
     path('acerca/', views.acerca, name='acerca'),
     path('galeria/', views.galeria, name='galeria'),
     path('categoria/<slug:slug>/', views.categoria, name='categoria'),
-    path('colaboracion/', views.colaboracion, name='colaboracion'),  # <-- agregada
+    path('colaboracion/', views.colaboracion, name='colaboracion'),
     path('contacto/', views.contacto, name='contacto'),
+
+    # ✅ RUTA DE DESCARGA (CORREGIDA)
+    path('descargar/<int:pk>/', views.descargar_foto, name='descargar_foto'),
 )

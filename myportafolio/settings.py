@@ -115,16 +115,16 @@ if DEBUG:
     STATICFILES_DIRS = [BASE_DIR / "portafolio" / "static"]
 
 # =========================================================
-# 🔥 CLOUDINARY
+# 🔥 CLOUDINARY (CORREGIDO)
 # =========================================================
-import cloudinary
+# Eliminamos cloudinary.config() y usamos cloudinary_storage directamente
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": os.getenv("CLOUDINARY_CLOUD_NAME", "dfuypc2jq"),
+    "API_KEY": os.getenv("CLOUDINARY_API_KEY", "699389243387785"),
+    "API_SECRET": os.getenv("CLOUDINARY_API_SECRET", "TjOJg4K-w65zGmr0Hks5P4N6z58"),
+}
 
-cloudinary.config(
-    cloud_name=os.environ.get("CLOUDINARY_CLOUD_NAME"),
-    api_key=os.environ.get("CLOUDINARY_API_KEY"),
-    api_secret=os.environ.get("CLOUDINARY_API_SECRET"),
-    secure=True,
-)
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 # -------------------------
 # DEFAULT PK
@@ -149,4 +149,11 @@ else:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
     if DEBUG:
         print("⚠️ DEBUG: Emails se mostrarán en consola, no se enviarán")
+import cloudinary
 
+cloudinary.config(
+    cloud_name=CLOUDINARY_STORAGE["CLOUD_NAME"],
+    api_key=CLOUDINARY_STORAGE["API_KEY"],
+    api_secret=CLOUDINARY_STORAGE["API_SECRET"],
+    secure=True
+)

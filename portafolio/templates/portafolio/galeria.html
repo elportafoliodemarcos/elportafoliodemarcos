@@ -53,6 +53,11 @@
                 <div class="info">
                     <h5>{{ foto.title }}</h5>
                     <p>{{ foto.description }}</p>
+
+                    <!-- Botón de descarga: apunta a la vista Django -->
+                    <a href="{% url 'descargar_foto' foto.pk %}" class="btn btn-primary mt-2" data-title="{{ foto.title }}">
+                        {% trans "Descargar" %}
+                    </a>
                 </div>
             </div>
         </div>
