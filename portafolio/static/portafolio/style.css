@@ -532,10 +532,87 @@ footer {
     margin-bottom: -35px !important;
 }
 footer {
-    padding-top: 0.5rem !important;
-    padding-bottom: 0.5rem !important;
+    padding-top: 0.3rem !important;
+    padding-bottom: 0.3rem !important;
 }
 footer p {
     margin-top: 0.5rem; /* ajusta este valor a tu gusto, ej. 0.5rem o 1rem */
 }
+/* ===========================
+   ICONOS REDES SOCIALES FOOTER
+=========================== */
+.footer-socials {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
 
+.footer-socials a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: black;
+    text-decoration: none;
+}
+
+.footer-socials i {
+    font-size: 1.1rem;
+}
+
+.footer-socials .separator {
+    margin: 0 6px;
+    color: black;
+}
+/* ===========================
+   LOGO EN NAVBAR
+=========================== */
+.navbar-logo {
+    max-height: 72px;   /* puedes subir a 60px sin tocar el navbar */
+    width: auto;
+    margin-right: 10px;
+    object-fit: contain;
+    display: block;
+}
+.navbar-brand {
+    gap: 0; /* asegura alineación limpia */
+}
+/* ===========================
+   AJUSTE ALTURA NAVBAR
+=========================== */
+.navbar {
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
+}
+.navbar-brand {
+    align-items: center;
+}
+/* ===========================
+   NAVBAR ULTRA COMPACTO
+=========================== */
+
+/* Reduce padding vertical real del navbar */
+.navbar {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+}
+
+/* Reduce altura interna del contenedor */
+.navbar .container {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+/* Ajusta line-height del brand */
+.navbar-brand .brand-title {
+    line-height: 1.1;
+}
+
+.navbar-brand .brand-subtitle {
+    line-height: 2;
+}
+
+/* Asegura centrado vertical total */
+.navbar-brand {
+    align-items: center;
+}
