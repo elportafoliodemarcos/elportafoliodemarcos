@@ -30,12 +30,19 @@
                         <div id="paypal-10"></div>
                     {% elif opcion == 20 %}
                         <div id="paypal-20"></div>
-                    {% elif opcion == 50 %}
-                        <div id="paypal-50"></div>
                     {% endif %}
                 </div>
             </div>
             {% endfor %}
+
+            <!-- BOTÓN 50 € (div siempre presente fuera del for) -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow p-3 text-center">
+                    <h3 style="font-size: 1.5rem; font-weight: bold;">€ 50.00</h3>
+                    <p class="card-text">Haz una donación de <strong>€ 50</strong> para apoyar el proyecto.</p>
+                    <div id="paypal-container-PYXSCX8FMMJBE"></div>
+                </div>
+            </div>
 
             <!-- MONTO LIBRE -->
             <div class="col-md-4 mb-4">
@@ -52,8 +59,9 @@
 </section>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function() {
 
+    // BOTONES EXISTENTES
     paypal.HostedButtons({
         hostedButtonId: "LWZ5YWW4SUDA2" // 0.50 €
     }).render("#paypal-050");
@@ -70,12 +78,14 @@ document.addEventListener("DOMContentLoaded", function () {
         hostedButtonId: "YXT39CD3Q9NNC" // 20 €
     }).render("#paypal-20");
 
+    // BOTÓN 50 € CORREGIDO
     paypal.HostedButtons({
-        hostedButtonId: "PYXSCX8FMMJBE" // 50 €
-    }).render("#paypal-50");
+        hostedButtonId: "PYXSCX8FMMJBE"
+    }).render("#paypal-container-PYXSCX8FMMJBE");
 
+    // MONTO LIBRE
     paypal.HostedButtons({
-        hostedButtonId: "MHXT95DBPJNDL" // monto libre
+        hostedButtonId: "MHXT95DBPJNDL"
     }).render("#paypal-libre");
 
 });
