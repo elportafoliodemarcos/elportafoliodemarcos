@@ -9,7 +9,7 @@ import os
 # Página de inicio
 # -------------------------
 def home(request):
-    featured_photos = Photo.objects.filter(is_featured=True, image__isnull=False)[:5]
+    featured_photos = Photo.objects.filter(is_featured=True).order_by('-created_at')[:5]
     category_photos = {
         category: Photo.objects.filter(category=category, image__isnull=False)
         for category in Category.objects.all()
