@@ -538,4 +538,53 @@ footer {
 footer p {
     margin-top: 0.5rem; /* ajusta este valor a tu gusto, ej. 0.5rem o 1rem */
 }
+/* ===========================
+   MOBILE ONLY – CARRUSEL
+=========================== */
+@media (max-width: 768px) {
 
+    .full-width-carousel .carousel-inner img {
+        object-fit: cover;
+        object-position: center center; /* 🔥 fuerza enfoque al centro */
+    }
+
+}
+/* ===========================
+   MOBILE ONLY – NAVBAR
+=========================== */
+@media (max-width: 768px) {
+
+    /* Centrar el botón hamburguesa */
+    .navbar .container {
+        position: relative;
+    }
+
+    .navbar-toggler {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        border: none;
+    }
+
+    /* Mejorar look de las rayitas */
+    .navbar-toggler-icon {
+        width: 1.8rem;
+        height: 1.8rem;
+        background-size: 100%;
+    }
+
+    /* Menú desplegado centrado */
+    .navbar-collapse {
+        text-align: center;
+    }
+
+    .navbar-nav {
+        align-items: center;
+    }
+
+    .navbar-nav .nav-link {
+        padding: 0.8rem 0;
+        font-size: 1.1rem;
+    }
+
+}
