@@ -78,15 +78,17 @@
                             {% trans "Galería" %}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            {% for categoria in categories %}
-                                <li>
-                                    <a class="dropdown-item" href="{% url 'categoria' slug=categoria.slug %}">
-                                        {{ categoria.name }}
-                                    </a>
-                                </li>
-                            {% empty %}
-                                <li><span class="dropdown-item text-muted">{% trans "Sin categorías disponibles" %}</span></li>
-                            {% endfor %}
+                        {% for categoria in categories %}
+    <li>
+        <a class="dropdown-item" href="{% url 'categoria' slug=categoria.slug %}">
+            {{ categoria.name }}
+        </a>
+    </li>
+{% empty %}
+    <li><span class="dropdown-item text-muted">{% trans "Sin categorías disponibles" %}</span></li>
+{% endfor %}
+
+
                         </ul>
                     </li>
 
