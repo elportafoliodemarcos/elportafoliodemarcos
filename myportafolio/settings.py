@@ -1,11 +1,14 @@
 import os
 from pathlib import Path
+from dotenv import load_dotenv
 from django.utils.translation import gettext_lazy as _
 
 # -------------------------
 # BASE
 # -------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+load_dotenv(BASE_DIR / ".env")
 
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "clave-local")
 
@@ -116,17 +119,15 @@ if DEBUG:
     STATICFILES_DIRS = [BASE_DIR / "portafolio" / "static"]
 
 # =========================================================
-# 🔥 CLOUDINARY (CORREGIDO)
+# 🔥 CLOUDINARY
 # =========================================================
-# Eliminamos cloudinary.config() y usamos cloudinary_storage directamente
 CLOUDINARY_STORAGE = {
-    "CLOUD_NAME": os.getenv("CLOUDINARY_CLOUD_NAME", "dfuypc2jq"),
-    "API_KEY": os.getenv("CLOUDINARY_API_KEY", "699389243387785"),
-    "API_SECRET": os.getenv("CLOUDINARY_API_SECRET", "TjOJg4K-w65zGmr0Hks5P4N6z58"),
+    "CLOUD_NAME": os.getenv("CLOUDINARY_CLOUD_NAME"),
+    "API_KEY": os.getenv("CLOUDINARY_API_KEY"),
+    "API_SECRET": os.getenv("CLOUDINARY_API_SECRET"),
 }
 
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
-
 # -------------------------
 # DEFAULT PK
 # -------------------------

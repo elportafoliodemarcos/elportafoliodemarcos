@@ -30,3 +30,4 @@ Thumbs.db
 # Scripts temporales
 migrate_to_cloudinary.py
 
+.env
