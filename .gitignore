@@ -31,3 +31,4 @@ Thumbs.db
 migrate_to_cloudinary.py
 
 .env
+twilio_2FA_recovery_code.txt
