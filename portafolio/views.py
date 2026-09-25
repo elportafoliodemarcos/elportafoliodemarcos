@@ -9,11 +9,20 @@ import os
 # Página de inicio
 # -------------------------
 def home(request):
-    featured_photos = Photo.objects.filter(is_featured=True).order_by('-created_at')[:5]
+    featured_photos = Photo.objects.filter(
+        is_public=True,
+        is_featured=True
+    ).order_by('-created_at')[:5]
+
     category_photos = {
-        category: Photo.objects.filter(category=category, image__isnull=False)
+        category: Photo.objects.filter(
+            category=category,
+            image__isnull=False,
+            is_public=True
+        )
         for category in Category.objects.all()
     }
+
     donativo_opciones = [0.5, 5, 10, 20]
 
     return render(request, 'portafolio/home.html', {
@@ -26,19 +35,33 @@ def home(request):
 # Galería completa
 # -------------------------
 def galeria(request):
-    fotos = Photo.objects.filter(image__isnull=False)
-    banners = Photo.objects.filter(is_featured=True, image__isnull=False)[:5]
+    fotos = Photo.objects.filter(
+        image__isnull=False,
+        is_public=True
+    )
+
+    banners = Photo.objects.filter(
+        is_featured=True,
+        image__isnull=False,
+        is_public=True
+    )[:5]
+
     return render(request, 'portafolio/galeria.html', {
         'fotos': fotos,
         'banners': banners
     })
-
 # -------------------------
 # Galería por categoría
 # -------------------------
 def categoria(request, slug):
     category = get_object_or_404(Category, slug=slug)
-    photos = Photo.objects.filter(category=category, image__isnull=False)
+
+    photos = Photo.objects.filter(
+        category=category,
+        image__isnull=False,
+        is_public=True
+    )
+
     return render(request, 'portafolio/categoria.html', {
         'category': category,
         'photos': photos
@@ -130,7 +153,7 @@ def colaboracion(request):
 # Descarga de foto compatible Local / Render
 # -------------------------
 def descargar_foto(request, pk):
-    foto = get_object_or_404(Photo, pk=pk)
+    foto = get_object_or_404(Photo, pk=pk, is_public=True)
     if not foto.image:
         return HttpResponse("No hay imagen disponible", status=404)
 
