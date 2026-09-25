@@ -12,7 +12,8 @@ load_dotenv(BASE_DIR / ".env")
 
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "clave-local")
 
-DEBUG = True
+DEBUG = os.environ.get("DJANGO_DEBUG", "False").lower() == "true"
+
 
 ALLOWED_HOSTS = [
     "elportafoliodemarcos.onrender.com",
